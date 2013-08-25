@@ -1,0 +1,4 @@
+(defun mystery (x) (first (last (reverse x))))
+
+(defun make-palindrome (lst)
+  (append lst (reverse lst)))

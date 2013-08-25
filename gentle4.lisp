@@ -1,0 +1,20 @@
+(defun compare (x y)
+  (cond ((equal x y) (format t "Now") 'numbers 'are 'same)
+	((< x y) 'first-is-smaller)
+	((> x y) 'first-is-bigger)))
+
+(defun emphasize (x)
+  (cond ((equal (first x) 'good) (cons 'great (rest x)))
+	((equal (first x) 'bad) (cons 'awful (rest x)))
+	(t x)))
+
+(defun how-alike (a b)
+  (cond ((equal a b) 'the-same)
+	((and (oddp a) (oddp b)) 'both-odd)
+	((and (not (oddp a)) (not (oddp b))) 'both-even)
+	((and (< a 0) (< b 0)) 'both-negative)
+	(t 'not-alike)))
+
+(defun describe-likeness (a b)
+  (if (equal a b) 'the-same)
+  (if (and (evenp a) (evenp b)) 'both-even))

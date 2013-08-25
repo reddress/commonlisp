@@ -1,0 +1,378 @@
+;;;; month-day-hour
+;;;; 062712
+;;;; finished in 4h 30m, 377 lines
+
+;;;; special variables
+(defparameter *hands* '())
+(defparameter *discard-pile* '())
+(defparameter *stock* '())
+(defparameter *valid-rank* nil)
+(defparameter *valid-suit* nil)
+(defparameter *current-player* 0)
+
+(defun start-game (num-players)
+  (deal-hands num-players)
+  (sort-hands)
+  (setf *current-player* (random num-players))
+  (setf *valid-rank* nil)
+  (setf *valid-suit* nil)
+  (setf *discard-pile* '())
+  (loop
+     (dotimes (i num-players)
+       (if (null (player-hand i))
+	   (progn (format t "Player ~A wins!~%" i)
+		  (return-from start-game t))))
+     (display)
+     (if (equal *current-player* 0)
+	 (ask-human)
+	 (progn
+	   (let ((cpu-choice (best-move *current-player*)))
+	     (if (null cpu-choice)
+             (draw-card *current-player*)
+             (play-card *current-player* cpu-choice)))))))
+
+(defun ask-human ()
+  (format t "Player 0, pick a card (D to draw): ")
+  (let ((card (read)))
+    (if (equal card 'D)
+	(draw-card 0)
+	(progn
+	  (if (not (member card (player-hand 0)))
+	      (progn (format t "Card not in hand. ") (ask-human))
+	      (if (not (is-valid-play card))
+		  (progn (format t "Not a valid play. ") (ask-human))
+		  (play-card 0 card)))))))
+
+(defun display ()
+  (format t "~%")
+  (format t "Player ~A's turn.~%" *current-player*)
+  (format t "----------------~%")
+  (format t "Your hand: ~A~%" (player-hand 0))
+  (dotimes (n (length *hands*))
+    (format t "Player ~A: " n)
+    (dotimes (i (length (player-hand n)))
+      (format t "[]"))
+    (format t "~%"))
+  (format t "Last card: ~A~%" (last-card)))
+
+(defun display-all ()
+  (format t "~%")
+  (format t "Player ~A's turn.~%" *current-player*)
+  (format t "----------------~%")
+  (dotimes (n (length *hands*))
+    (format t "Player ~A: " n)
+    (print-hand n))
+  (format t "Last card: ~A~%" (last-card))
+;  (format t "Discard pile: ~A~%" *discard-pile*)
+;  (format t "Stock: ~A~%" *stock*)
+  )
+
+(defun next-player ()
+  (setf *current-player* (mod (1+ *current-player*) (length *hands*))))
+
+(defun is-valid-play (card)
+  (cond ((equal (rank card) "8") t)
+	((null *valid-suit*) t)
+	(t (or (equal (suit card) *valid-suit*)
+	       (equal (rank card) *valid-rank*)))))
+
+(defun last-card ()
+  (mkstr (if (null *valid-rank*) "" *valid-rank*)
+	 (if (null *valid-suit*) "" *valid-suit*)))
+
+(defun set-valid-card (card)
+  (setf *valid-rank* (rank card))
+  (setf *valid-suit* (suit card)))
+
+(defun sort-hands ()
+  (dotimes (n (length *hands*))
+    (sort-hand n)))
+
+;;;; utility functions
+(defun mkstr (&rest args)
+  (with-output-to-string (s)
+    (dolist (a args) (princ a s))))
+
+(defun combine-symbols (&rest args)
+  (values (intern (apply #'mkstr args))))
+
+(defun group (source n)
+  (if (zerop n) (error "zero length group"))
+  (labels ((rec (source acc)
+	     (let ((rest (nthcdr n source)))
+	       (if (consp rest)
+		   (rec rest (cons (subseq source 0 n) acc))
+		   (nreverse (cons source acc))))))
+    (if source (rec source nil) nil)))
+
+(defun repeat (symbol times)
+  (if (equal times 0)
+      '()
+      (cons symbol (repeat symbol (1- times)))))
+
+(defun index-of-match (s lst)
+  (labels ((rec (s lst inx)
+	     (if (null lst)
+		 nil
+		 (progn
+		   (if (equal (first lst) s)
+		       inx
+		       (rec s (rest lst) (1+ inx)))))))
+    (rec s lst 0)))
+
+(defun new-deck ()
+  ;; return brand new, ordered deck of 52 cards
+  (let ((deck '()))
+    (dolist (suit '(C D H S))
+      (dolist (rank '(2 3 4 5 6 7 8 9 T J Q K A))
+	(push (combine-symbols rank suit) deck)))
+    deck))
+
+(defun pick-random-element (lst)
+  (let ((picked (random (length lst))))
+    (values
+     (nth picked lst)
+     (append (subseq lst 0 picked) (subseq lst (1+ picked))))))
+
+(defun shuffle (source dest)
+  (if (null source)
+      dest
+      (progn
+	(multiple-value-bind (picked-card source-minus-one)
+	    (pick-random-element source)
+	  (shuffle source-minus-one (cons picked-card dest))))))
+
+(defun deal-hands (num-players)
+  ;; return 4 lists, each with 13 cards
+  (let ((shuffled-deck (shuffle (new-deck) '()))
+;  (let ((shuffled-deck (new-deck))
+	(cards-per-player (if (> num-players 2) 5 7)))
+    (setf *hands* (group (subseq shuffled-deck 0 (* num-players cards-per-player)) cards-per-player))
+    (setf *stock* (subseq shuffled-deck (* num-players cards-per-player)))
+    t))
+
+(defun play-card (player card)
+  (if (member card (nth player *hands*))
+      (progn
+	(setf (nth player *hands*) (remove-if #'(lambda (c) (equal c card)) (nth player *hands*)))
+	(set-valid-card card)
+	(format t "Player ~A played ~A.~%" player card)
+	(push card *discard-pile*)
+	(next-player))
+      nil)
+  (if (equal (rank card) "8")
+      (if (equal player 0)
+	  (ask-human-new-suit)
+	  (progn
+	    (format t "Picking suit ~A.~%" (longest-suit player))
+	    (setf *valid-suit* (mkstr (longest-suit player)))
+	    (setf *valid-rank* nil)))))
+
+(defun draw-card (player)
+  (format t "Player ~A draws a card.~%" player)
+  (if (null *stock*)
+      (progn
+	(setf *stock* (shuffle *discard-pile* '()))
+	(setf *discard-pile* '())))
+  (push (pop *stock*) (nth player *hands*))
+  (sort-hand player)
+  (next-player))
+
+(defun ask-human-new-suit ()
+  (format t "Pick the new suit: ")
+  (let ((new-suit (read)))
+    (if (member new-suit '(C D H S))
+	(progn
+	  (setf *valid-suit* (mkstr new-suit))
+	  (setf *valid-rank* nil))
+	(progn (format t "Enter C, D, H, or S. ") (ask-human-new-suit)))))
+	 
+
+(defun player-hand (index)
+  (nth index *hands*))
+
+(defun rank (card)
+  (subseq (symbol-name card) 0 1))
+
+(defun suit (card)
+  (subseq (symbol-name card) 1))
+
+;;;; to sort by suit and then rank
+;;;; AS KS QS JS ... 2S AH ... 2H AD ... 2D AC ... 2C
+;;;; 52 51 50 49     40 39 ... 27 26 ... 14 13 ... 1
+
+(defun card-index-to-symbol (index)
+  (let ((rank-index (mod index 13)))
+    (intern
+     (mkstr
+      (nth rank-index '(A 2 3 4 5 6 7 8 9 T J Q K))
+      (cond ((> index 39) "S")
+	    ((> index 26) "H")
+	    ((> index 13) "D")
+	    (t "C"))))))
+	 
+(defun suit-index-value (suit)
+  (cond ((string= suit "C") 0)
+	((string= suit "D") 13)
+	((string= suit "H") 26)
+	((string= suit "S") 39)
+	(t 0)))
+
+(defun rank-index-value (rank)
+  (cond ((string= rank "A") 13)
+	((string= rank "K") 12)
+	((string= rank "Q") 11)
+	((string= rank "J") 10)
+	((string= rank "T") 9)
+	((string= rank "9") 8)
+	((string= rank "8") 7)
+	((string= rank "7") 6)
+	((string= rank "6") 5)
+	((string= rank "5") 4)
+	((string= rank "4") 3)
+	((string= rank "3") 2)
+	((string= rank "2") 1)
+	(t 0)))
+
+(defun card-index (card)
+  (+ (suit-index-value (suit card)) (rank-index-value (rank card))))
+
+(defun sort-hand (player)
+  (setf (nth player *hands*)
+	(mapcar #'card-index-to-symbol
+		(sort (mapcar #'card-index (nth player *hands*)) #'>))))
+
+(defun print-hand (index)
+  (format t "~A~%" (sort-hand index)))
+
+(defun cards-in-suit (hand suit)
+  (reduce #'+ (mapcar #'card-is-suit hand (repeat (mkstr suit) (length hand)))))
+
+(defun card-is-suit (card suit)
+  (if (equal (mkstr suit) (suit card))
+      1
+      0))
+
+(defun cards-of-suit (hand suit)
+  (if (null suit)
+      hand
+      (remove-if-not #'(lambda (card) (equal (mkstr suit) (suit card))) hand)))
+
+(defun cards-of-rank (hand rank)
+  (remove-if-not #'(lambda (card) (equal (mkstr rank) (rank card))) hand))
+
+(defun no-trump-value (card)
+  ;; 2C 2D 2H 2S 3C 3D ...
+  ;; 0  1  2  3  4  5  
+  (let ((card-rank (rank card))
+	(card-suit (suit card)))
+    (+
+     (cond ((equal card-rank "2") 0)
+	   ((equal card-rank "3") 4)
+	   ((equal card-rank "4") 8)
+	   ((equal card-rank "5") 12)
+	   ((equal card-rank "6") 16)
+	   ((equal card-rank "7") 20)
+	   ((equal card-rank "9") 24)
+	   ((equal card-rank "T") 28)
+	   ((equal card-rank "J") 32)
+	   ((equal card-rank "Q") 36)
+	   ((equal card-rank "K") 40)
+	   ((equal card-rank "A") 44)
+	   ((equal card-rank "8") 48)
+	   (t 0))
+     (cond ((equal card-suit "C") 0)
+	   ((equal card-suit "D") 1)
+	   ((equal card-suit "H") 2)
+	   ((equal card-suit "S") 3)))))
+
+(defun card-value-to-card (index)
+  (multiple-value-bind (rank suit) (floor (mod index 100) 4)
+    (intern
+     (mkstr
+      (cond ((equal rank 0) "2")
+	    ((equal rank 1) "3")
+	    ((equal rank 2) "4")
+	    ((equal rank 3) "5")
+	    ((equal rank 4) "6")
+	    ((equal rank 5) "7")
+	    ((equal rank 6) "9")
+	    ((equal rank 7) "T")
+	    ((equal rank 8) "J")
+	    ((equal rank 9) "Q")
+	    ((equal rank 10) "K")
+	    ((equal rank 11) "A")
+	    ((equal rank 12) "8")
+	    (t "X"))
+      (cond ((equal suit 0) "C")
+	    ((equal suit 1) "D")
+	    ((equal suit 2) "H")
+	    ((equal suit 3) "S"))))))
+
+(defun card-value (card)
+  (no-trump-value card))
+
+(defun lowest (hand)
+  (if (null hand)
+      nil
+      (progn
+	(card-value-to-card 
+	 (apply #'min (mapcar #'(lambda (c) (card-value c)) hand))))))
+
+(defun highest (hand)
+  (if (null hand)
+      nil
+      (progn
+	(card-value-to-card
+	 (apply #'max (mapcar #'(lambda (c) (card-value c)) hand))))))
+
+(defun except-suit (hand suit)
+  (if (null suit)
+      hand
+      (remove-if #'(lambda (card) (equal (mkstr suit) (suit card))) hand)))
+
+(defun except-rank (hand rank)
+  (if (null rank)
+      hand
+      (remove-if #'(lambda (card) (equal (mkstr rank) (rank card))) hand)))
+
+(defun longest-suit (player)
+  (let ((suit-count
+	 (mapcar #'(lambda (h s) (length (cards-of-suit h s)))
+		 (repeat (player-hand player) 4)
+		 '(C D H S))))
+    (nth (index-of-match (apply #'max suit-count)
+			 suit-count)
+	 '(C D H S))))
+
+(defun best-move (player)
+  (cond ((null *valid-suit*) ; start of game
+	 (lowest (cards-of-suit (player-hand player) (longest-suit player))))
+	((null *valid-rank*) ; after new suit is picked
+	 (lowest (cards-of-suit (player-hand player) *valid-suit*)))
+	((not (null (match-ranks (cards-of-suit (player-hand player) *valid-suit*)
+				 (cards-of-suit (player-hand player) (longest-suit player)))))
+	 ;; try to switch to longest suit
+	 (match-ranks (cards-of-suit (player-hand player) *valid-suit*)
+		      (cards-of-suit (player-hand player) (longest-suit player))))
+	((> (length (union (cards-of-suit (player-hand player) *valid-suit*) (cards-of-rank (player-hand player) *valid-rank*))) 0)
+	 ;; otherwise pick a valid move
+	 (lowest (union (cards-of-suit (player-hand player) *valid-suit*)
+			(cards-of-rank (player-hand player) *valid-rank*))))
+	((> (length (cards-of-rank (player-hand player) "8")) 0)
+	 (lowest (cards-of-rank (player-hand player) "8")))
+	(t nil)))
+
+;; play 8 as last resort
+;; determine way to "switch suits" to longest-suit by playing same rank card
+
+(defun match-ranks (hand-a hand-b)
+  ;; exclude 8s
+  (let* ((a (except-rank hand-a "8"))
+	 (b (except-rank hand-b "8"))
+	 (suit (suit (first hand-a)))
+	 (a-and-b (intersection (mapcar #'rank a) (mapcar #'rank b) :test #'equal)))
+    (if (null a-and-b)
+	nil
+	(intern (mkstr (first a-and-b) suit)))))
+

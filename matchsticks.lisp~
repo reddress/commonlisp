@@ -1,0 +1,13 @@
+;; 21 matchsticks
+
+(defparameter *matchsticks* 21)
+
+(defun remove-matchsticks (n)
+  (setf *matchsticks* (- *matchsticks* n)))
+
+(defun print-matchsticks ()
+  (dotimes (i *matchsticks*)
+    (format t "|")))
+
+(defun restart-matchsticks ()
+  (setf *matchsticks* 21))

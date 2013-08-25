@@ -1,0 +1,8 @@
+(make-package "MATCH")
+(in-package "MATCH")
+
+(defun variablep (sym)
+  (eql (char (symbol-name sym) 0) #\?))
+
+(defun match-element (e1 e2)
+  

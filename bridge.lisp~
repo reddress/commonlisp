@@ -1,0 +1,50 @@
+(defun mkstr (&rest args)
+  (with-output-to-string (s)
+    (dolist (a args) (princ a s))))
+
+(defun combine-symbols (&rest args)
+  (values (intern (apply #'mkstr args))))
+
+(defun deal-hands ()
+  ;; return 4 lists, each with 13 cards
+  nil)
+
+(defun new-deck ()
+  ;; return brand new, ordered deck of 52 cards
+  (let ((deck '()))
+    (dolist (suit '(C D H S))
+      (dolist (rank '(2 3 4 5 6 7 8 9 T J Q K A))
+	(push (combine-symbols rank suit) deck)))
+    deck))
+
+(defun rank (card)
+  (intern (subseq (symbol-name card) 0 1)))
+
+(defun suit (card)
+  (intern (subseq (symbol-name card) 1)))
+
+(defun hcp (card)
+  (let ((card-rank (rank card)))
+    (cond ((equal card-rank 'A) 4)
+	  ((equal card-rank 'K) 3)
+	  ((equal card-rank 'Q) 2)
+	  ((equal card-rank 'J) 1)
+	  (t 0))))
+
+(defun hand-hcp (hand)
+  ;; hand is a list of cards
+  (reduce #'+ (mapcar #'hcp hand)))
+
+(defun pick-random-element (lst)
+  (let ((picked (random (length lst))))
+    (values
+     (nth picked lst)
+     (append (subseq lst 0 picked) (subseq lst (1+ picked))))))
+
+(defun shuffle (source dest)
+  (if (null source)
+      dest
+      (progn
+	(multiple-value-bind (picked-card source-minus-one)
+	    (pick-random-element source)
+	  (shuffle source-minus-one (cons picked-card dest))))))

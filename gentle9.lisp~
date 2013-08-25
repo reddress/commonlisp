@@ -1,0 +1,12 @@
+(defun my-square ()
+  (format t "Please enter a number: ")
+  (let ((x (read)))
+    (format t "The number ~S squared is ~S.~%"
+	    x (* x x))))
+
+(defun get-pay ()
+  (format t "Enter hourly wage: ")
+  (let ((hourly (read)))
+    (format t "Enter number of hours: ")
+    (let ((hours (read)))
+      (format t "Gross pay: ~S" (* hourly hours)))))

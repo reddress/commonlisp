@@ -1,0 +1,5 @@
+(defun my-find-null (lst)
+  (let ((result nil))
+    (dotimes (i (length lst))
+      (or result (null (nth i lst)))
+      (print i result))))

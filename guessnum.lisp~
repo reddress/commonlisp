@@ -1,0 +1,10 @@
+(defun prompt-read (prompt)
+  (format *query-io* "~a: " prompt)
+  (force-output *query-io*)
+  (read-line *query-io*))
+
+(defun main ()
+  (let ((ans (random 20)))
+    (format t ans)
+    (prompt-read "Guess a number")))
+    
