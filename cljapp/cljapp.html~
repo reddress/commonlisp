@@ -1,5 +1,0 @@
-<html>
-<body>
-<applet archive="cljapp.jar, clojure-1.5.1.jar" code="applet.class" width="400" height="200"></applet>
-</body>
-</html>
