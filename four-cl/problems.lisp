@@ -12,6 +12,33 @@
 
 (defparameter __ nil)
 
+;;;; Sample usage
+;;; % Square
+
+(replace-blank
+ (deftest test-square ()
+   (check
+    (= (__ 3) 9)))
+
+ (lambda (x) (* x x)))
+
+;; (test-square)  ; victory
+
+;;; % Reciprocal
+
+(defun reciprocal (x)
+  (/ 1 x))
+
+(replace-blank
+ (deftest test-reciprocal ()
+   (check
+    (= (__ 1) 1)
+    (equalp (__ 8) 0.125)))
+
+ reciprocal)
+
+;; (test-reciprocal)  ; victory
+
 ;;; 1 Nothing but the Truth
 
 (deftest test-1 ()
@@ -28,7 +55,6 @@
    (= (- 10 (* 2 3)) __)))
 
 (setf __ 4)
-;; (test-2)  ; pass
         
 ;;; 3 Intro to Strings
 
@@ -37,7 +63,6 @@
    (equal __ (string-upcase "hello world"))))
 
 (setf __ "HELLO WORLD")
-;; (test-3)  ; pass
 
 ;;; 4 Intro to Lists
 
@@ -48,12 +73,23 @@
 
  :a :b :c)
 
-;; (test-4)  ; pass
-
-;;; 5* conj -> cons
+;;; 5* conj (rewritten to: cons)
 
 (replace-blank
  (deftest test-5 ()
    (check
     (equal __ (cons 1 '(2 3 4)))
-    (equal __ (cons 1 (cons 2 '(3 4)))
+    (equal __ (cons 1 (cons 2 '(3 4))))))
+ 
+ '(1 2 3 4))
+
+;;; 6 Intro to Vectors
+
+(replace-blank
+ (deftest test-6 ()
+   (check
+    (equalp __ (vector 1 2 3))))
+ 
+ #(1 2 3))
+
+;;; 7

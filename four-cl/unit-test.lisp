@@ -68,4 +68,4 @@
                   (apply #'my-subst (cdr form) old new))))))
 
 (defmacro replace-blank (form &rest replacements)
-  (apply #'my-subst form '*blank* replacements))
+  (apply #'my-subst form '__ replacements))
