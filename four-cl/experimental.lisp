@@ -1,15 +1,15 @@
 (defmacro replace-blank (form &rest replacements)
-  (apply #'my-subst form '*blank* replacements))
+  (apply #'my-subst form '__ replacements))
 
 ;; (macroexpand-1
 (replace-blank
  (deftest test-4 ()
-   (equal (list *blank*) '(:a :b :c)))
+   (equal (list __) '(:a :b :c)))
  :a :b :c)
 ;; )  ; victory
  
-(subst '*value* '*blank* '(1 (*blank*)
-                           3 *blank*))
+(subst '*value* '__ '(1 (__)
+                           3 __))
 
 (defun my-substitute (form old &rest new)
   (when form
@@ -48,11 +48,53 @@
 (replace-blank
  (deftest test-a-1 ()
    (check
-    (equal *blank* (+ 1 1))
-    (equal *blank* (/ 6 3))
-    (equal *blank* (- 9 7))))
+    (equal __ (+ 1 1))
+    (equal __ (/ 6 3))
+    (equal __ (- 9 7))))
  2)
 
 (test-a-1)
  
-           
+(defun range-1 (n)
+  (loop for i from 1 to n collecting i))
+
+(defun range (n)
+  (loop for i from 0 to (- n 1) collecting i))
+
+(defun my-lambdas-loop (n)
+  (loop for i from 0 to n collecting
+       (lambda (m) (+ i m))))
+
+(defun my-lambdas-cons (n)
+  (if (= n 0)
+      ()
+      (cons (lambda (m) (+ m n))
+            (my-lambdas-cons (- n 1)))))
+
+(defmacro defproblem (name tests solution)
+  `(replace-blank
+    (deftest ,name ()
+      (check
+       ,@tests))
+    ,solution))
+
+(macroexpand-1 
+'(defproblem problem-square
+    ((= (__ 3) 9)
+     (= (__ -1) 1))
+  (lambda (x) (* x x))))
+
+(defproblem problem-square
+    ((= (__ 3) 9))
+  (lambda (x) (* x x)))
+
+(defun problem-symbol (n)
+  (intern (concatenate 'string "PROBLEM-" (write-to-string n))))
+
+(defun problem-range (start end)
+  (loop for i from start to end collecting (list (problem-symbol i))))
+
+(defmacro combine-problem-tests (start end)
+  `(deftest problem-range-tests ()
+     (combine-results
+      ,@(problem-range start end))))

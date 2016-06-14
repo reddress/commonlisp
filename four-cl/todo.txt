@@ -1,0 +1,3 @@
+- make a macro encapsulating (replace-blank (deftest ...
+
+- make a macro that generates (deftest test-all () (check (test-1) (test-2) ...))

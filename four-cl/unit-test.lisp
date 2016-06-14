@@ -1,3 +1,5 @@
+;;;; From Practical Common Lisp by Peter Seibel
+;;;; gigamonkeys.com
 ;;;; Ch. 9
 
 ;;; from Ch. 8
@@ -23,7 +25,7 @@
        ,result)))
 
 (defun report-result (result form)
-  (format t "~:[FAIL~;pass~] ... ~a: ~a~%" result *test-name* form)
+  (format t "~:[FAIL~;PASS~] ... ~a: ~a~%" result *test-name* form)
   result)
 
 ;;;; usage
@@ -69,3 +71,31 @@
 
 (defmacro replace-blank (form &rest replacements)
   (apply #'my-subst form '__ replacements))
+
+;;;; shorten an individual problem's tests
+(defmacro defproblem (name tests solution)
+  `(replace-blank
+    (deftest ,name ()
+      (check
+       ,@tests))
+    ,solution))
+
+;;;; combine a range of numbered tests into RANGE-TESTS
+
+;; (deftest range-tests ()
+;;   (combine-results
+;;    (problem-1)
+;;    (problem-2)
+;;     ...
+;;    (problem-6)))
+
+(defun problem-symbol (n)
+  (intern (concatenate 'string "PROBLEM-" (write-to-string n))))
+
+(defun problem-range (start end)
+  (loop for i from start to end collecting (list (problem-symbol i))))
+
+(defmacro combine-problem-range (name start end)
+  `(deftest ,name ()
+     (combine-results
+      ,@(problem-range start end))))
