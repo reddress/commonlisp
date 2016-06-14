@@ -25,9 +25,9 @@
 23. Reverse a Sequence
 24. Sum It All Up
 25. Find the Odd Numbers
-26. 
-27. 
-28. 
+26. Fibonacci Sequence
+27. Palindrome Detector
+28. Flatten a Sequence
 29. 
 30. 
 31. 
