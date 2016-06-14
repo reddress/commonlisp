@@ -73,12 +73,12 @@
   (apply #'my-subst form '__ replacements))
 
 ;;;; shorten an individual problem's tests
-(defmacro defproblem (name tests solution)
+(defmacro defproblem (name tests &rest solution)
   `(replace-blank
     (deftest ,name ()
       (check
        ,@tests))
-    ,solution))
+    ,@solution))
 
 ;;;; combine a range of numbered tests into RANGE-TESTS
 
