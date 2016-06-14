@@ -1,4 +1,5 @@
 4clojure.com Completed Problem List
+ (*) marks interesting problems
 
 1. Nothing but the Truth
 2. Simple Math
@@ -20,14 +21,14 @@
 18. Sequences: filter
 19. Last Element
 20. Penultimate Element
-21. Nth Element
+ * 21. Nth Element
 22. Count a Sequence
-23. Reverse a Sequence
+ * 23. Reverse a Sequence
 24. Sum It All Up
 25. Find the Odd Numbers
-26. Fibonacci Sequence
+ * 26. Fibonacci Sequence
 27. Palindrome Detector
-28. Flatten a Sequence
+ * 28. Flatten a Sequence
 29. 
 30. 
 31. 
@@ -156,3 +157,7 @@
 154. 
 155. 
 156. 
+
+Extra
+- Append
+- Flatten only one level deep
