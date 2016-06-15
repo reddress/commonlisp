@@ -1,3 +1,5 @@
+;;;; A way to control flow between various functions is throw - catch
+
 (defun main-loop ()
   (loop (ask-human)))
 
