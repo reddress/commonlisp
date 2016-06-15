@@ -21,25 +21,25 @@
 18. Sequences: filter
 19. Last Element
 20. Penultimate Element
- * 21. Nth Element
+ * 21. Nth Element *
 22. Count a Sequence
- * 23. Reverse a Sequence
+ * 23. Reverse a Sequence *
 24. Sum It All Up
 25. Find the Odd Numbers
- * 26. Fibonacci Sequence
+ * 26. Fibonacci Sequence *
 27. Palindrome Detector
- * 28. Flatten a Sequence
+ * 28. Flatten a Sequence *
 29. Get the Caps
 30. Compress a Sequence
 31. Pack a Sequence
 32. Duplicate a Sequence
 33. Replicate a Sequence
 34. Implement range
-35. 
-36. 
-37. 
+35. Local Bindings
+36. Let it Be
+37.     SKIP Regular Expressions
 38. Maximum Value
-39. 
+39. Interleave Two Seqs
 40. 
 41. 
 42. 
