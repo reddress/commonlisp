@@ -1,5 +1,5 @@
 ;;;; Number and Problem description
-;;;; 
+;;;; 29 Get the Caps
 
 ;;;; using CLISP
 (if (string= "heitor-asus" (subseq (machine-instance) 0 11))  ; ubuntu
@@ -15,18 +15,14 @@
   (:use :common-lisp :four-cl.unit-test))
 (in-package :four-cl)
 
-;;;; __ gets replaced by SOLUTION
-;;
-;; (defproblem PROBLEM-NAME
-;;     ((TEST)
-;;      (equal (__ n) m)  ; example
-;;      ...
-;;      (TEST)
-;;      (TEST)*)
-;;   SOLUTION)
-
-;; Run tests
-;; (PROBLEM-NAME)
-     
 ;;;; UPDATE file problem-list.txt
 
+(defproblem get-the-caps
+    ((string= (__ "HeLlO, WoRlD!") "HLOWRD")
+     (string= "" (__ "nothing"))
+     (string= (__ "$#A(*&987Zf") "AZ"))
+  my-get-caps)
+
+(defun my-get-caps (str)
+  (coerce (remove-if-not #'upper-case-p (coerce str 'list))
+          'string))

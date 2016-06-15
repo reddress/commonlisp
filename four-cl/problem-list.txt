@@ -29,12 +29,12 @@
  * 26. Fibonacci Sequence
 27. Palindrome Detector
  * 28. Flatten a Sequence
-29. 
-30. 
-31. 
-32. 
-33. 
-34. 
+29. Get the Caps
+30. Compress a Sequence
+31. Pack a Sequence
+32. Duplicate a Sequence
+33. Replicate a Sequence
+34. Implement range
 35. 
 36. 
 37. 
@@ -161,3 +161,4 @@
 Extra
 - Append
 - Flatten only one level deep
+- Repeat a list

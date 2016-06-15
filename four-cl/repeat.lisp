@@ -1,5 +1,5 @@
 ;;;; Number and Problem description
-;;;; 
+;;;; EXTRA: Repeat a list
 
 ;;;; using CLISP
 (if (string= "heitor-asus" (subseq (machine-instance) 0 11))  ; ubuntu
@@ -15,18 +15,21 @@
   (:use :common-lisp :four-cl.unit-test))
 (in-package :four-cl)
 
-;;;; __ gets replaced by SOLUTION
-;;
-;; (defproblem PROBLEM-NAME
-;;     ((TEST)
-;;      (equal (__ n) m)  ; example
-;;      ...
-;;      (TEST)
-;;      (TEST)*)
-;;   SOLUTION)
-
-;; Run tests
-;; (PROBLEM-NAME)
-     
 ;;;; UPDATE file problem-list.txt
 
+(defproblem repeat-a-list
+    ((equal (__ '(1 2)) '(1 2 1 2))
+     (equal (__ '()) '())
+     (equal (__ '((1) (2 ((3))))) '((1) (2 ((3))) (1) (2 ((3))))))
+  ;; (lambda (lst) (append lst lst)))  ; easy solution
+  my-repeat)
+
+(defun my-repeat (lst)
+  (my-repeat-helper (reverse lst) lst))
+
+(defun my-repeat-helper (a result)
+  (if (null a)
+      result
+      (my-repeat-helper (cdr a) (cons (car a) result))))
+
+(repeat-a-list)

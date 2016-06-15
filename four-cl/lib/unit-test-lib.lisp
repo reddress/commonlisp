@@ -28,8 +28,8 @@
 
 (defmacro combine-results (&body forms)
   (pcl-with-gensyms (result)
-    `(let ((,result t))
-       ,@(loop for f in forms collect `(unless ,f (setf ,result nil)))
+    `(let ((,result "All tests passed"))
+       ,@(loop for f in forms collect `(unless ,f (setf ,result "One or more tests failed")))
        ,result)))
 
 (defun report-result (result form)

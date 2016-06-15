@@ -1,5 +1,5 @@
 ;;;; Number and Problem description
-;;;; 
+;;;; 34 Implement range
 
 ;;;; using CLISP
 (if (string= "heitor-asus" (subseq (machine-instance) 0 11))  ; ubuntu
@@ -30,3 +30,16 @@
      
 ;;;; UPDATE file problem-list.txt
 
+(defproblem implement-range
+    ((equal (__ 1 4) '(1 2 3))
+     (equal (__ -2 2) '(-2 -1 0 1))
+     (equal (__ 5 8) '(5 6 7)))
+  hc-range)
+
+(defun hc-range (start end)
+  (nreverse (hc-range-helper start end '())))
+
+(defun hc-range-helper (start end result)
+  (if (= start end)
+      result
+      (hc-range-helper (+ start 1) end (cons start result))))

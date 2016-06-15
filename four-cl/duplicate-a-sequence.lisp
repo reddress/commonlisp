@@ -1,5 +1,5 @@
 ;;;; Number and Problem description
-;;;; 
+;;;; 32 Duplicate a Sequence
 
 ;;;; using CLISP
 (if (string= "heitor-asus" (subseq (machine-instance) 0 11))  ; ubuntu
@@ -30,3 +30,15 @@
      
 ;;;; UPDATE file problem-list.txt
 
+(defproblem duplicate-a-sequence
+    ((equal (__ '(1 2 3)) '(1 1 2 2 3 3))
+     (equal (__ '(:a :a :b :b)) '(:a :a :a :a :b :b :b :b))
+     (equal (__ '((1 2) (3 4))) '((1 2) (1 2) (3 4) (3 4))))
+  my-duplicate)
+
+(defun my-duplicate (lst)
+  (when lst
+    (let ((head (car lst)))
+      (cons head (cons head (my-duplicate (cdr lst)))))))
+     
+            
