@@ -13,3 +13,18 @@
 (in-package :four-cl)
 
 ;;;; UPDATE file problem-list.txt
+
+(defproblem add-one
+    ((equal (__ 1) 2))
+  1+)
+
+(defproblem add-one-my-solution
+    ((equal (__ 1) 2))
+  (lambda (x) (+ 1 x)))
+
+(defproblem add-one-defined-elsewhere
+    ((equal (__ 1) 2))
+  my-add-one)
+
+(defun my-add-one (x)
+  (+ 1 x))

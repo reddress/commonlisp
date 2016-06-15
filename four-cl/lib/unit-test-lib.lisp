@@ -1,4 +1,10 @@
-;;;; This file is not in any package, use lib/unit-test.lisp instead
+;;;; full package name :io.github.heitorchang.four-cl
+(defpackage :four-cl.unit-test
+  (:use :common-lisp)
+  (:export :__  ; placeholder for solution
+           :defproblem))
+
+(in-package :four-cl.unit-test)
 
 ;;;; From Practical Common Lisp by Peter Seibel
 ;;;; gigamonkeys.com

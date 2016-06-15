@@ -5,7 +5,7 @@
     (ext:cd "C:\\Users\\Heitor\\Desktop\\emacs-24.3\\bin\\commonlisp\\four-cl\\lib\\"))
 
 ;;;; load unit-test framework
-(load "unit-test-lib.lisp")
+(load "unit-test.lisp")
 
 ;;;; full package name :io.github.heitorchang.four-cl
 (defpackage :four-cl
@@ -13,3 +13,6 @@
 (in-package :four-cl)
 
 ;;;; UPDATE file problem-list.txt
+(defproblem test-using-package
+    ((equal t t))
+  t)
