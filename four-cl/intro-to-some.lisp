@@ -1,5 +1,5 @@
 ;;;; Number and Problem description
-;;;; 
+;;;; 48 Intro to some
 
 ;;;; using CLISP
 (if (string= "heitor-asus" (subseq (machine-instance) 0 11))  ; ubuntu
@@ -30,3 +30,6 @@
      
 ;;;; UPDATE file problem-list.txt after solving
 
+(defproblem intro-to-some
+    ((eq __ (some #'evenp '(5 6 7 8))))
+  t)

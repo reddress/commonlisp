@@ -1,5 +1,5 @@
 ;;;; Number and Problem description
-;;;; 
+;;;; 40 Interpose a Seq
 
 ;;;; using CLISP
 (if (string= "heitor-asus" (subseq (machine-instance) 0 11))  ; ubuntu
@@ -28,5 +28,19 @@
 ;; Run tests
 ;; (PROBLEM-NAME)
      
-;;;; UPDATE file problem-list.txt after solving
+;;;; UPDATE file problem-list.txt
 
+(defproblem interpose-a-seq
+    ((equal (__ 0 '(1 2 3)) '(1 0 2 0 3))
+     (string= (apply #'concatenate 'string (__ ", " '("one" "two" "three"))) "one, two, three")
+     (equal (__ :z '(:a :b :c :d)) '(:a :z :b :z :c :z :d)))
+  my-interpose)
+
+(defun my-interpose (val lst)
+  ;; remove last element
+  (reverse
+   (cdr (reverse (my-interpose-helper val lst)))))
+
+(defun my-interpose-helper (val lst)
+  (when lst
+    (cons (car lst) (cons val (my-interpose-helper val (cdr lst))))))

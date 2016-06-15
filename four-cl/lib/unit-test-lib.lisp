@@ -2,6 +2,9 @@
 (defpackage :four-cl.unit-test
   (:use :common-lisp)
   (:export :__  ; placeholder for solution
+           :deftest
+           :check
+           :combine-results
            :defproblem))
 
 (in-package :four-cl.unit-test)
@@ -26,15 +29,29 @@
   `(combine-results
     ,@(loop for f in forms collect `(report-result ,f ',f))))
 
+(defmacro combine-results-original (&body forms)
+  (pcl-with-gensyms (result)
+                    `(let ((,result t))
+                       ,@(loop for f in forms collect `(unless ,f (setf ,result nil)))
+                       ,result)))
+
 (defmacro combine-results (&body forms)
   (pcl-with-gensyms (result)
-    `(let ((,result "All tests passed"))
-       ,@(loop for f in forms collect `(unless ,f (setf ,result "One or more tests failed")))
-       ,result)))
+                    `(let ((,result t))
+                       ,@(loop for f in forms collect `(unless ,f (setf ,result nil)))
+                       ,result)))
 
 (defun report-result (result form)
-  (format t "~:[FAIL~;PASS~] ... ~a: ~a~%" result *test-name* form)
+  ;; (format t "~:[*** FAIL~;Pass~]: ~a: ~a~%" result *test-name* form)
+  (format t "~:[*** FAIL~;Pass~]: ~a~%" result form)
   result)
+
+(defmacro fn-choose-message (f new-name)
+  `(defun ,new-name ()
+     (let ((result (funcall ,f)))
+       (if result
+           "All tests passed."
+           "One or more tests failed."))))
 
 ;;;; usage
 
@@ -88,6 +105,25 @@
        ,@tests))
     ,@solution))
 
+;;; copy of the above
+(defmacro defproblem-single-test (name tests &rest solution)
+  `(replace-blank
+    (deftest ,name ()
+      (check
+       ,@tests))
+    ,@solution))
+
+;;; appends -TEST to symbol
+(defun append-test (sym)
+  (intern (concatenate 'string (string sym) "-TEST")))
+
+;;; Wraps tests with a generated a human-readable overall result
+;;; Does not work on nested tests
+(defmacro defproblem-wrapper (name tests &rest solution)
+  `(progn
+     (defproblem-single-test ,(append-test name) ,tests ,@solution)
+     (fn-choose-message #',(append-test name) ,name)))
+
 ;;;; combine a range of numbered tests into RANGE-TESTS
 
 ;; (deftest range-tests ()
@@ -107,3 +143,4 @@
   `(deftest ,name ()
      (combine-results
       ,@(problem-range start end))))
+

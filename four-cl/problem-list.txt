@@ -2,6 +2,8 @@
  (*) marks interesting problems
  (R) purely recursive process, compare to our-remove-if (On Lisp, p. 15)
  (I) iterative process, compare to good-reverse (On Lisp, p. 30)
+ (F) functional style
+ 
 1. Nothing but the Truth
 2. Simple Math
 3. Intro to Strings
@@ -41,15 +43,15 @@
 37.     SKIP Regular Expressions
 38. Maximum Value
 39. Interleave Two Seqs (I)
-40. 
-41. 
-42. 
-43. 
-44. 
-45. 
-46. 
-47. 
-48. 
+40. Interpose a Seq (R)
+41. Drop Every Nth Item 
+ * 42. Factorial Fun (R, I, F) *
+43. Reverse Interleave
+44. Rotate Sequence
+45.     SKIP Intro to Iterate
+46. Flipping out
+47.     SKIP Contain Yourself
+48. Intro to some
 49. 
 50. 
 51. 

@@ -1,5 +1,5 @@
 ;;;; Number and Problem description
-;;;; 
+;;;; 45 Intro to Iterate
 
 ;;;; using CLISP
 (if (string= "heitor-asus" (subseq (machine-instance) 0 11))  ; ubuntu
@@ -30,3 +30,4 @@
      
 ;;;; UPDATE file problem-list.txt after solving
 
+;;; SKIP because it creates an infinite lazy sequence

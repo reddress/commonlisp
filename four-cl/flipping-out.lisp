@@ -1,5 +1,5 @@
 ;;;; Number and Problem description
-;;;; 
+;;;; 46 Flipping out
 
 ;;;; using CLISP
 (if (string= "heitor-asus" (subseq (machine-instance) 0 11))  ; ubuntu
@@ -30,3 +30,13 @@
      
 ;;;; UPDATE file problem-list.txt after solving
 
+(defproblem flipping-out
+    ((= 3 (funcall (__ #'nth) '(1 2 3 4 5) 2))  ; arguments are reversed in clj
+     (eq t (funcall (__ #'>) 7 8))
+     (= 4 (funcall (__ #'/) 2 8))
+     (equal '(1 2 3) (funcall (__ #'first-n) '(1 2 3 4 5) 3)))
+  my-flip)
+
+(defun my-flip (f)
+  (lambda (a b)
+    (funcall f b a)))

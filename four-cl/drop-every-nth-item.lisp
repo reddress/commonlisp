@@ -30,3 +30,19 @@
      
 ;;;; UPDATE file problem-list.txt after solving
 
+(defproblem drop-every-nth
+    ((equal (__ '(1 2 3 4 5 6 7 8) 3) '(1 2 4 5 7 8))
+     (equal (__ '(:a :b :c :d :e :f) 2) '(:a :c :e))
+     (equal (__ '(1 2 3 4 5 6) 4) '(1 2 3 5 6)))
+  my-drop-nth)
+
+(defun my-drop-nth (lst n)
+  (my-drop-nth-helper lst n 1))
+
+(defun my-drop-nth-helper (lst n i)
+  (when lst
+    (if (= 0 (mod i n))
+        (my-drop-nth-helper (cdr lst) n (+ i 1))
+        (cons (car lst) (my-drop-nth-helper (cdr lst) n (+ i 1))))))
+
+(drop-every-nth)
