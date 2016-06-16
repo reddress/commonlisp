@@ -1,5 +1,5 @@
 ;;;; Number and Problem description
-;;;; 
+;;;; 49 Split a sequence
 
 ;;;; using CLISP
 (if (string= "heitor-asus" (subseq (machine-instance) 0 11))  ; ubuntu
@@ -30,3 +30,20 @@
      
 ;;;; UPDATE file problem-list.txt after solving
 
+(deftest split-a-sequence
+    ((equal (__ 3 '(1 2 3 4 5 6)) '((1 2 3) (4 5 6)))
+     (equal (__ 1 '(:a :b :c :d)) '((:a) (:b :c :d)))
+     (equal (__ 2 '((1 2) (3 4) (5 6))) '(((1 2) (3 4)) ((5 6)))))
+  my-split)
+
+(defun my-split (n lst)
+  ;; (let ((first-n (reverse (nthcdr (- (length lst) n) (reverse lst)))))  ; ugly
+  (let ((first-n (nreverse (accumulate-first-n n lst '()))))
+    (cons first-n (list (nthcdr n lst)))))
+
+(defun accumulate-first-n (n lst result)
+  (if (= n 0)
+      result
+      (accumulate-first-n (- n 1) (cdr lst) (cons (car lst) result))))
+
+(split-a-sequence)

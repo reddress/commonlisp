@@ -1,5 +1,5 @@
 ;;;; Number and Problem description
-;;;; 
+;;;; 51 Advanced Destructuring
 
 ;;;; using CLISP
 (if (string= "heitor-asus" (subseq (machine-instance) 0 11))  ; ubuntu
@@ -30,3 +30,15 @@
      
 ;;;; UPDATE file problem-list.txt after solving
 
+(deftest advanced-destructuring
+    ((equal '(1 2 (3 4 5) (1 2 3 4 5))
+            (destructuring-bind (&whole d a b &rest c)
+                (list __)
+              (list a b c d))))
+  1 2 3 4 5)
+
+(advanced-destructuring)
+
+(destructuring-bind (&whole d a b &rest c)
+    (list 1 2 3 4 5)
+  (list a b c d))
