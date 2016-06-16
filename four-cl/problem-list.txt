@@ -1,14 +1,20 @@
 4clojure.com Completed Problem List
- Make note of date completed
+ Make note of date completed (column 58)
 
+ References to On Lisp are for the PDF with figures.
+ 
  Difficulties: E(L)ementary, (E)asy, (M)edium, (H)ard
  (*) marks interesting problems
  (A) uses assignment
+ (C) uses closure
  (F) functional style
  (I) iterative process, compare to good-reverse (On Lisp, p. 30)
  (R) purely recursive process, compare to our-remove-if (On Lisp, p. 15)
+ <V> victory on first try (starting from #59)
+
+ [Hash] contains hash-tables
  
-L 1. Nothing but the Truth (elementary-problems-1-to-9)  14 jun 2016
+L 1. Nothing but the Truth (elementary-problems-1-to-9)   14 jun 2016
 L 2. Simple Math
 L 3. Intro to Strings
 L 4. Intro to Lists
@@ -17,7 +23,7 @@ L 6. Intro to Vectors
 L 7. Vectors: conj
 L 8. Intro to Sets
 L 9. Sets: conj
-L 10. Intro to Maps
+L 10. Intro to Maps                                       14 jun 2016
 L 11. Maps: conj
 L 12. Intro to Sequences
 L 13. Sequences: rest
@@ -28,14 +34,14 @@ L 17. Sequences: map
 L 18. Sequences: filter
 E 19. Last Element
 E 20. Penultimate Element
-E  * 21. Nth Element (R) *  14 jun 2016
+E  * 21. Nth Element (R) *                                14 jun 2016
 E 22. Count a Sequence
 E  * 23. Reverse a Sequence (I) *
 E 24. Sum It All Up
 E 25. Find the Odd Numbers
 E  * 26. Fibonacci Sequence (R) *
 E 27. Palindrome Detector
-E  * 28. Flatten a Sequence (R) *  14 jun 2016
+E  * 28. Flatten a Sequence (R) *                         14 jun 2016
 E 29. Get the Caps
 E 30. Compress a Sequence
 E 31. Pack a Sequence
@@ -45,31 +51,31 @@ E 34. Implement range (I)
 L 35. Local Bindings
 L 36. Let it Be
 L 37.     SKIP Regular Expressions
-E 38. Maximum Value
-E 39. Interleave Two Seqs (I)
+E 38. Maximum Value                                       14 jun 2016
+E 39. Interleave Two Seqs (I)                             15 jun 2016
 E 40. Interpose a Seq (R)
 E 41. Drop Every Nth Item 
-E  * 42. Factorial Fun (R, I, F) *  15 jun 2016
+E  * 42. Factorial Fun (R, I, F) *                        15 jun 2016
 M 43. Reverse Interleave
 M 44. Rotate Sequence
 E 45.     SKIP Intro to Iterate
 M 46. Flipping out
 E 47.     SKIP Contain Yourself
-E 48. Intro to some
-E 49. Split a Sequence
+E 48. Intro to some                                       15 jun 2016
+E 49. Split a Sequence                                    16 jun 2016
 M 50. Split by Type (A)
 E 51. Advanced Destructuring
 L 52. Intro to Destructuring
 H 53. Longest Increasing Sub-Seq (A)
 M 54. Partition a Sequence
-M 55. Count Occurrences
-56. 
-57. 
-58. 
-59. 
-60. 
-61. 
-62. 
+M 55. Count Occurrences [Hash]
+M 56. Find Distinct Items
+L 57. Simple Recursion
+M  * 58. Function Composition (C) *
+M 59. Juxtaposition (A) <V>
+M 60. Sequence Reductions (A)
+E 61. Map Construction (A) [Hash]
+E 62. Re-implement Iterate                                16 jun 2016
 63. 
 64. 
 65. 
@@ -103,7 +109,7 @@ M 55. Count Occurrences
 93. 
 94. 
 95. 
-E * 96. Beauty is Symmetry (R) *
+E * 96. Beauty is Symmetry (R) *                          16 jun 2016
 97. 
 98. 
 99. 

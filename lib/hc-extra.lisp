@@ -10,3 +10,7 @@
 (defun first-n (n lst)
   (reverse
    (nthcdr (- (length lst) n) (reverse lst))))
+
+(defun partial (f &rest args)
+  (lambda (&rest new-args)
+    (apply f (append args new-args))))

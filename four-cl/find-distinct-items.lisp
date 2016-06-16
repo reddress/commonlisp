@@ -1,5 +1,5 @@
 ;;;; Number and Problem description
-;;;; 55 Count Occurrences
+;;;; 56 Find Distinct Items
 
 ;;;; using CLISP
 (if (string= "heitor-asus" (subseq (machine-instance) 0 11))  ; ubuntu
@@ -9,6 +9,7 @@
 
 ;;;; load unit-test framework
 (load "pcl-unit-test.lisp")
+(load "hc-extra.lisp")
 
 ;;;; full package name :io.github.heitorchang.four-cl
 (defpackage :four-cl
@@ -27,27 +28,21 @@
 
 ;; Run tests
 ;; (PROBLEM-NAME)
-
+     
 ;;;; UPDATE file problem-list.txt after solving
 
-(deftest count-occurrences
-    ((let ((hash-1 (__ '(1 1 2 3 2 1 1))))
-       (and (= (gethash 1 hash-1) 4)
-            (= (gethash 2 hash-1) 2)
-            (= (gethash 3 hash-1) 1)))
-     (let ((hash-2 (__ '(:b :a :b :a :b))))
-       (and (= (gethash :a hash-2) 2)
-            (= (gethash :b hash-2) 3)))
-     (let ((hash-3 (__ '((1 2) (1 3) (1 3)))))
-       (and (= (gethash '(1 2) hash-3) 1)
-            (= (gethash '(1 3) hash-3) 2))))
-  my-count)
+(deftest find-distinct-items
+    ((equal (__ '(1 2 1 3 1 2 4)) '(1 2 3 4))
+     (equal (__ '(:a :a :b :b :c :c)) '(:a :b :c))
+     (equal (__ '((2 4) (1 2) (1 3) (1 3))) '((2 4) (1 2) (1 3)))
+     (equal (__ (range 50)) (range 50)))
+  my-find-distinct)
 
-(defun my-count (lst)
-  (let ((result (make-hash-table :test 'equal)))  ; equal for lists as keys
+(defun my-find-distinct (lst)
+  (let ((result '()))
     (dolist (elem lst)
-      (let ((hash-ref (gethash elem result)))
-        (if hash-ref
-            (incf (gethash elem result))
-            (setf (gethash elem result) 1))))
-    result))
+      (unless (position elem result :test 'equal)
+        (push elem result)))
+    (nreverse result)))
+
+(find-distinct-items)
