@@ -1,6 +1,7 @@
 4clojure.com Completed Problem List
- Make note of date completed (column 58)
-
+ In the end, manually check each link, because some numbers do not
+ exist and it is too tedious to check them one-by-one up to 195
+ 
  References to On Lisp are for the PDF with figures.
  
  Difficulties: E(L)ementary, (E)asy, (M)edium, (H)ard
@@ -10,6 +11,9 @@
  E 53 (85)
  M 47 (132)
  H 24 (156)
+
+ As of        Elem  Easy   Med  Hard  (Total)
+ 16 jun 2016    23    29    10     1     (63)
  
  (*) marks interesting problems
  (A) uses assignment
@@ -17,7 +21,6 @@
  (F) functional style
  (I) iterative process, compare to good-reverse (On Lisp, p. 30)
  (R) purely recursive process, compare to our-remove-if (On Lisp, p. 15)
- <V> victory on first try (starting from #59)
 
  [Hash] contains hash-tables
  
@@ -79,7 +82,7 @@ M 55. Count Occurrences [Hash]
 M 56. Find Distinct Items
 L 57. Simple Recursion
 M  * 58. Function Composition (C) *
-M 59. Juxtaposition (A) <V>
+M 59. Juxtaposition (A)
 M 60. Sequence Reductions (A)
 E 61. Map Construction (A) [Hash]
 E 62. Re-implement Iterate                                16 jun 2016
@@ -170,14 +173,17 @@ E * 96. Beauty is Symmetry (R) *                          16 jun 2016
 147. 
 148. 
 149. 
-150. 
-151. 
+150.
+
+--- Number sequence breaks
 152. 
 153. 
-154. 
-155. 
-156. 
-M 195.
+156.
+161.
+162.
+168.
+173.
+195.
 
 Extra
 - Append
