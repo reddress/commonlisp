@@ -7,10 +7,18 @@
 (load "html.lisp")
 (load "pcl-unit-test.lisp")
 
-;;; full package name io.github.heitorchang
 (defpackage :hc
   (:use :common-lisp
         :pcl.unit-test
         :com.gigamonkeys.html))
 
 (in-package :hc)
+
+(html
+ (:html
+  (:head
+   (:meta :charset "utf-8")
+   (:title "Random numbers"))
+  (:body
+   (:h1 "Random numbers")
+   (:p (loop repeat 10 do (html (:print (random 1000)) " "))))))
