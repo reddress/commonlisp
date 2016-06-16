@@ -5,5 +5,5 @@
     (ext:cd "C:\\Users\\Heitor\\Desktop\\emacs-24.3\\bin\\commonlisp\\experimental\\"))
 ;;;; full package name :io.github.heitorchang.four-cl
 (defpackage :hc
-  (:use :common-lisp :ext))
+  (:use :common-lisp :ext :pcl.unit-test))
 (in-package :hc)
