@@ -10,6 +10,8 @@
 ;;;; load unit-test framework
 (load "pcl-unit-test.lisp")
 
+(load "hc-extra.lisp")
+
 ;;;; full package name :io.github.heitorchang.four-cl
 (defpackage :four-cl
   (:use :common-lisp :pcl.unit-test))
@@ -50,3 +52,13 @@
     (nreverse result)))
 
 (partition-a-sequence)
+
+;; Paul Graham On Lisp p. 47
+(defun pg-group (n source)
+  (if (zerop n) (error "zero length"))
+  (labels ((rec (source acc)
+             (let ((rest (nthcdr n source)))
+               (if (consp rest)
+                   (rec rest (cons (subseq source 0 n) acc))
+                   (nreverse (cons source acc))))))
+    (if source (rec source nil) nil)))

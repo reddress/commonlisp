@@ -1,38 +1,41 @@
 4clojure.com Completed Problem List
+ Make note of date completed
+
+ Difficulties: E(L)ementary, (E)asy, (M)edium, (H)ard
  (*) marks interesting problems
  (A) uses assignment
  (F) functional style
  (I) iterative process, compare to good-reverse (On Lisp, p. 30)
  (R) purely recursive process, compare to our-remove-if (On Lisp, p. 15)
  
-1. Nothing but the Truth
-2. Simple Math
-3. Intro to Strings
-4. Intro to Lists
-5. Conj
-6. Intro to Vectors
-7. Vectors: conj
-8. Intro to Sets
-9. Sets: conj
-10. Intro to Maps
-11. Maps: conj
-12. Intro to Sequences
-13. Sequences: rest
-14. Intro to Functions
-15. Double Down
-16. Hello World
-17. Sequences: map
-18. Sequences: filter
-19. Last Element
-20. Penultimate Element
- * 21. Nth Element (R) *
-22. Count a Sequence
- * 23. Reverse a Sequence (I) *
-24. Sum It All Up
-25. Find the Odd Numbers
- * 26. Fibonacci Sequence (R) *
-27. Palindrome Detector
-E  * 28. Flatten a Sequence (R) *
+L 1. Nothing but the Truth (elementary-problems-1-to-9)  14 jun 2016
+L 2. Simple Math
+L 3. Intro to Strings
+L 4. Intro to Lists
+L 5. Conj
+L 6. Intro to Vectors
+L 7. Vectors: conj
+L 8. Intro to Sets
+L 9. Sets: conj
+L 10. Intro to Maps
+L 11. Maps: conj
+L 12. Intro to Sequences
+L 13. Sequences: rest
+L 14. Intro to Functions
+L 15. Double Down
+L 16. Hello World
+L 17. Sequences: map
+L 18. Sequences: filter
+E 19. Last Element
+E 20. Penultimate Element
+E  * 21. Nth Element (R) *  14 jun 2016
+E 22. Count a Sequence
+E  * 23. Reverse a Sequence (I) *
+E 24. Sum It All Up
+E 25. Find the Odd Numbers
+E  * 26. Fibonacci Sequence (R) *
+E 27. Palindrome Detector
+E  * 28. Flatten a Sequence (R) *  14 jun 2016
 E 29. Get the Caps
 E 30. Compress a Sequence
 E 31. Pack a Sequence
@@ -46,7 +49,7 @@ E 38. Maximum Value
 E 39. Interleave Two Seqs (I)
 E 40. Interpose a Seq (R)
 E 41. Drop Every Nth Item 
-E  * 42. Factorial Fun (R, I, F) *
+E  * 42. Factorial Fun (R, I, F) *  15 jun 2016
 M 43. Reverse Interleave
 M 44. Rotate Sequence
 E 45.     SKIP Intro to Iterate
@@ -58,8 +61,8 @@ M 50. Split by Type (A)
 E 51. Advanced Destructuring
 L 52. Intro to Destructuring
 H 53. Longest Increasing Sub-Seq (A)
-M 54. 
-55. 
+M 54. Partition a Sequence
+M 55. Count Occurrences
 56. 
 57. 
 58. 
