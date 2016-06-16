@@ -4,6 +4,13 @@
  References to On Lisp are for the PDF with figures.
  
  Difficulties: E(L)ementary, (E)asy, (M)edium, (H)ard
+
+ Total (Cumulative)
+ L 32
+ E 53 (85)
+ M 47 (132)
+ H 24 (156)
+ 
  (*) marks interesting problems
  (A) uses assignment
  (C) uses closure
@@ -170,6 +177,7 @@ E * 96. Beauty is Symmetry (R) *                          16 jun 2016
 154. 
 155. 
 156. 
+M 195.
 
 Extra
 - Append
