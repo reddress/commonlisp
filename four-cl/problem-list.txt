@@ -1,19 +1,24 @@
 4clojure.com Completed Problem List
+ "Clean" Account: hchang888/clj4----
+ 
  In the end, manually check each link, because some numbers do not
  exist and it is too tedious to check them one-by-one up to 195
  
  References to On Lisp are for the PDF with figures.
  
- Difficulties: E(L)ementary, (E)asy, (M)edium, (H)ard
+ Difficulties: E(L)ementary, (E)asy, (M)edium, (H)ard, (S)kip
 
+ # Come back to this question later
+ 
  Total (Cumulative)
  L 32
  E 53 (85)
  M 47 (132)
  H 24 (156)
-
+ 
  As of        Elem  Easy   Med  Hard  (Total)
- 16 jun 2016    23    29    10     1     (63)
+ 14 jun 2016  start
+ 16 jun 2016    22    27    10     1     (60)
  
  (*) marks interesting problems
  (A) uses assignment
@@ -60,7 +65,7 @@ E 33. Replicate a Sequence (I)
 E 34. Implement range (I)
 L 35. Local Bindings
 L 36. Let it Be
-L 37.     SKIP Regular Expressions
+S L 37.     SKIP Regular Expressions
 E 38. Maximum Value                                       14 jun 2016
 E 39. Interleave Two Seqs (I)                             15 jun 2016
 E 40. Interpose a Seq (R)
@@ -68,9 +73,9 @@ E 41. Drop Every Nth Item
 E  * 42. Factorial Fun (R, I, F) *                        15 jun 2016
 M 43. Reverse Interleave
 M 44. Rotate Sequence
-E 45.     SKIP Intro to Iterate
+S E 45.     SKIP Intro to Iterate
 M 46. Flipping out
-E 47.     SKIP Contain Yourself
+S E 47.     SKIP Contain Yourself
 E 48. Intro to some                                       15 jun 2016
 E 49. Split a Sequence                                    16 jun 2016
 M 50. Split by Type (A)
@@ -86,17 +91,17 @@ M 59. Juxtaposition (A)
 M 60. Sequence Reductions (A)
 E 61. Map Construction (A) [Hash]
 E 62. Re-implement Iterate                                16 jun 2016
-63. 
-64. 
-65. 
-66. 
-67. 
-68. 
-69. 
-70. 
-71. 
-72. 
-73. 
+E 63. Group a Sequence [Hash]                             17 jun 2016 
+L 64. Intro to reduce
+S M 65.     SKIP Black Box Testing
+E 66. Greatest Common Divisor (I)
+M  * 67. Prime Numbers *
+S L 68. Recurring theme
+# 69. Merge with a Function
+M 70. Word Sorting
+L 71. Rearranging code: ->
+L 72. Rearranging code: ->>
+# 73. (hard) Analyze a Tic-Tac-Toe board
 74. 
 75. 
 76. 
@@ -149,7 +154,7 @@ E * 96. Beauty is Symmetry (R) *                          16 jun 2016
 123. 
 124. 
 125. 
-126. 
+S E 126.    SKIP Through the Looking Class
 127. 
 128. 
 129. 
