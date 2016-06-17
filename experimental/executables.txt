@@ -1,8 +1,16 @@
-;;;; To create a Windows executable, use SBCL
-
 Example
 
 (defun main () (format t "~a" (truename ".")))
 
-(sb-ext:save-lisp-and-die "print-cwd.exe" :toplevel #'main :executable t)
+;;;; In CLISP
+;;; Copy DLLs from "full" folder
 
+(ext:saveinitmem FILENAME :quiet t :init-function 'main :executable t :norc t))
+
+Call (ext:exit) at the end of MAIN to prevent a REPL from appearing
+
+;;;; To create a Windows executable in SBCL
+
+(sb-ext:save-lisp-and-die FILENAME :toplevel #'main :executable t)
+
+;;; However, having problems with read-line
