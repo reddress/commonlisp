@@ -1,3 +1,5 @@
 *.fas
 *.fasl
 *.lisp~
+*.exe
+*.dll

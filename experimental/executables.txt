@@ -1,0 +1,8 @@
+;;;; To create a Windows executable, use SBCL
+
+Example
+
+(defun main () (format t "~a" (truename ".")))
+
+(sb-ext:save-lisp-and-die "print-cwd.exe" :toplevel #'main :executable t)
+
