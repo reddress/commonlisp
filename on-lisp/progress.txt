@@ -1,1 +1,2 @@
 15 jun 2016 p. 16 Sec. 2.5 Scope
+21 jun 2016 p. 61 Ch. 5 Returning functions
