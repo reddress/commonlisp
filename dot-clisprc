@@ -1,0 +1,5 @@
+;; define packages
+(load #P"C:\\Users\\Heitor\\Desktop\\emacs-24.3\\bin\\commonlisp\\lib\\packages.lisp")
+
+;; load deftest
+(load #P"C:\\Users\\Heitor\\Desktop\\emacs-24.3\\bin\\commonlisp\\lib\\pcl-unit-test.lisp")

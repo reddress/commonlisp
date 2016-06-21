@@ -26,10 +26,12 @@
 ;; (test-keep-first-element)
 
 ;;;; full package name :io.github.heitorchang.four-cl
-(defpackage :pcl.unit-test
-  (:use :common-lisp)
-  (:export :__  ; placeholder for desired code
-           :deftest))
+
+;; now in packages.lisp
+;; (defpackage :pcl.unit-test
+;;  (:use :common-lisp)
+;;  (:export :__  ; placeholder for desired code
+;;           :deftest))
 
 (in-package :pcl.unit-test)
 
