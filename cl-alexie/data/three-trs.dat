@@ -1,0 +1,4 @@
+
+(:|EQUITY| -1. :|INCOME| -1. :|EXPENSE| 1. :|LIABILITY| -1. :|ASSET| 1.) 
+(:|GROC| :|EXPENSE| :|SAV| :|ASSET| :|CHK| :|ASSET| :|WAL| :|ASSET| :|SAL| :|INCOME|) 
+(#S(|HC|::|TRANSACTION| :|DESC| "Beans" :|AMOUNT| 10. :|DEBIT| :|GROC| :|CREDIT| :|WAL|) #S(|HC|::|TRANSACTION| :|DESC| "Withdrawal" :|AMOUNT| 100. :|DEBIT| :|WAL| :|CREDIT| :|CHK|) #S(|HC|::|TRANSACTION| :|DESC| "Salary" :|AMOUNT| 2000. :|DEBIT| :|CHK| :|CREDIT| :|SAL|)) 

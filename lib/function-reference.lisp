@@ -38,6 +38,13 @@
 
 (funcall #'foo 1 2 3)
 (apply #'plot var-1 var-2 var-list)
+
+;; PCL Ch. 12
+(mapcar (lambda (x) (* 2 x)) '(1 2 3)) => (2 4 6)
+(mapcar #'+ '(1 2 3) '(100 200 300)) => (101 202 303)
+
+;; the function passed to mapcan must return a list
+(mapcan (lambda (x) (list x (* x 10))) '(1 2 3)) => (1 10 2 20 3 30)
 ")
 
 ;; FUNCTIONS
@@ -62,11 +69,26 @@ Global variables are dynamic (special).
 
 (defparameter *gap-tolerance* 0.001
   \"Tolerance in widget gaps. Always assigns value to the variable.\")
+
+(defconstant +my-constant+ 100
+  \"A constant's name should be surrounded by + signs\")
 ")  ; end GLOBALS
 
 ;; LIST
 (setf (gethash 'list *ref-db*) "
 (equal list-a list-b)  ; eql will not work
+
+(concatenate 'list #(1 2 3) '(4 5 6)) => (1 2 3 4 5 6)
+(append '(1 2) '(3 4)) => (1 2 3 4)
+(push 1 a) => (1)  ; needs (setf a '()) or similar
+(sort '(\"foo\" \"bar\" \"can\") #'string<) => (\"BAR\" \"CAN\" \"FOO\")
+
+(nth 2 '(a b c d e)) => c  ; lists only, for strings use (elt str n)
+(nthcdr 2 '(a b c d e)) => (c d e)
+
+(subseq lst start-index end-index)
+(subseq '(0 1 2 3 4 5) 2) => (2 3 4 5)
+(subseq '(0 1 2 3 4 5) 1 2) => (1)
 ")
 
 ;; LOOP
@@ -84,7 +106,39 @@ add:      (setf (getf my-plist :d) 4)
 
 ;; STRING
 (setf (gethash 'string *ref-db*) "
+(length \"abc\") => 3
 (parse-integer str :junk-allowed t)
+(concatenate 'string \"abc\" '(#\d #\e)) => \"abcde\"
+
+(subseq \"foobarbaz\" 3 6) => \"bar\"
+(elt \"abcde\" 2) => #\c
+(position #\b \"foobar\") => 3
+
+(split #\; \"a;b;c\") => (\"a\" \"b\" \"c\")  ; custom hc-lib function
+(string-trim \" \" \"  abc \") => \"abc\"
+       
+(coerce \"abc\" 'list) => (#\a #\b #\c)
+(coerce '(#\d #\e #\f) 'string)
+
+Comparisons:
+string=  string/=  string<=  string >=
+
+Case-insensitive:
+string-equal  string-not-equal  string-not-greaterp
+")
+
+;; VARIABLES
+(setf (gethash 'variables *ref-db*) "
+(incf x n) === (setf x (+ x n))  ; if n is omitted, it is 1
+(decf x n) === (setf x (- x n))
+
+(rotatef a b c)  ; assignment that rotates values left
+")
+
+;; VECTOR
+(setf (gethash 'vector *ref-db*) "
+Literal: #(1 2)
+(make-array) is more general than (vector)
 ")
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -105,6 +159,8 @@ add:      (setf (getf my-plist :d) 4)
                 plists plist
                 function functions
                 fileio file-io
+                vectors vector
+                variable variables
                 ))
          (new-value (getf map raw-category))
          (category
