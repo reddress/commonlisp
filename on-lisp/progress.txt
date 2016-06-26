@@ -1,3 +1,4 @@
 15 jun 2016 p. 16 Sec. 2.5
-21 jun 2016 p. 61 Ch. 5 Returning functions
+21 jun 2016 p. 61 Ch. 5
 22 jun 2016 p. 76 Ch. 6
+26 jun 2016 p. 99 Sec. 7.8
