@@ -6,6 +6,7 @@
 
 ;; load fn-ref
 (load #P"C:\\Users\\Heitor\\Desktop\\emacs-24.3\\bin\\commonlisp\\lib\\function-reference.lisp")
+(load #P"C:\\Users\\Heitor\\Desktop\\emacs-24.3\\bin\\commonlisp\\lib\\category-reference.lisp")
 
 ;; load hc-lib
 (load #P"C:\\Users\\Heitor\\Desktop\\emacs-24.3\\bin\\commonlisp\\lib\\hc-lib.lisp")
