@@ -35,15 +35,19 @@
 
 ;;; (defconstruct point x y)
 (defmacro defconstruct (struct-name &rest fields)
+  `(progn (defstruct ,struct-name ,@fields)
+          (defun ,(prepend-to-symbol "CONSTRUCT" struct-name) (,@fields)
+            (,(prepend-to-symbol "MAKE" struct-name)
+              ,@(interleave-kw-sym fields)))))
+
+;; (defmacro defconstruct-old (struct-name &rest fields)
   ;; http://stackoverflow.com/questions/5902847/how-do-i-apply-or-to-a-list-in-elisp/34946813#34946813
-  (eval `(defstruct ,struct-name ,@fields))
+;;   (eval `(defstruct ,struct-name ,@fields))
   
-  ;; `(defmacro ,(prepend-to-symbol "CONSTRUCT" struct-name) (,@fields)
-  ;;    (,(prepend-to-symbol "MAKE" struct-name)
-  ;;      ,@(interleave-kw-sym fields))))
-  `(defun ,(prepend-to-symbol "CONSTRUCT" struct-name) (,@fields)
-     (,(prepend-to-symbol "MAKE" struct-name)
-            ,@(interleave-kw-sym fields))))
+;;   `(defun ,(prepend-to-symbol "CONSTRUCT" struct-name) (,@fields)
+;;      (,(prepend-to-symbol "MAKE" struct-name)
+;;             ,@(interleave-kw-sym fields))))
 
 ;;; (setf a (construct-point 3 4))
 ;;; (point-x a)
+
