@@ -12,26 +12,23 @@
   (let ((doc (gethash fun-name *fun-db*)))
     (if doc
         (format t "FUN-DB: Warning: Redefining ~a~%" fun-name))
-    (setf (gethash fun-name *fun-db*) fun-doc)))
+    (setf (gethash fun-name *fun-db*) (format nil fun-doc))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; BEGIN DOCS
 
 ;;; A
 (add-fun 'add-fun "(add-fun FUN-NAME DOC)
-(add-fun 'first \"Returns the first element of a list.\")
-
+(add-fun 'first \"Returns the first element of a list.\") ~%
 Adds documentation for FUN-NAME to the *fun-db* DB hash-table.")
 
 ;;; F
 (add-fun 'first "(first LST)
-(first '(1 2 3)) => 1
-
+(first '(1 2 3)) => 1 ~%
 Returns the first element of LST.")
 
 ;;; G
-(add-fun 'gethash "(gethash KEY HASH-TABLE)
-
+(add-fun 'gethash "(gethash KEY HASH-TABLE)~%
 To set:
 (setf (gethash KEY HASH-TABLE) VALUE)")
 
