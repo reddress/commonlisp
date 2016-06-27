@@ -1,3 +1,10 @@
+;;; TODO
+;; sort
+;; remove-if-not
+;; subseq
+;; push
+
+
 ;;;; Call FUN with a symbol to print quick reference related to the
 ;;;; symbol
 
@@ -22,10 +29,30 @@
 (add-fun 'first \"Returns the first element of a list.\") ~%
 Adds documentation for FUN-NAME to the *fun-db* DB hash-table.")
 
+;;; C
+(add-fun 'coerce "(coerce OBJECT RESULT-TYPE)
+(coerce \"abc\" 'list) => (#\a #\b #\c)
+(coerce '(#\o #\k) 'string) => \"ok\"~%
+Returns an object of RESULT-TYPE with contents of original OBJECT.")
+
+(add-fun 'concatenate "(concatenate RESULT-TYPE &rest SEQUENCES)
+(concatenate 'string \"Hello\" \" \" \"all\") => \"Hello all\"
+(concatenate 'list \"abc\" '(d e f) #(1 2 3))
+  => (#\a #\b #\c D E F 1 2 3)~%
+Returns a sequence of RESULT-TYPE, containing elements of SEQUENCES.")
+
 ;;; F
 (add-fun 'first "(first LST)
 (first '(1 2 3)) => 1 ~%
 Returns the first element of LST.")
+
+(add-fun 'format "(format DESTINATION CONTROL-STRING &rest ARGS)
+(format t \"~~A~~%\" (+ 1 2)) => outputs 3 to *standard-output*
+(format nil \"~~S\" \"Hello\") => returns \"\\\"ok\\\"\"~%
+If DESTINATION is t, outputs formatted string to *standard-output*.
+If DESTINATION is nil, a string is returned by the call to FORMAT.~%
+  ~~A is the \"aesthetic\" directive.
+  ~~S generates output that can be read back with READ")
 
 ;;; G
 (add-fun 'gethash "(gethash KEY HASH-TABLE)~%
