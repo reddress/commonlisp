@@ -1,0 +1,89 @@
+;; 1. Pattern Search
+
+(def n-m (read-line))
+(def src (read-line))
+(def pat (read-line))
+
+(print
+ (count 
+  (re-seq (re-pattern (clojure.string/replace pat "*" ".")) src)))
+
+;; 2. Duplicate Names
+
+(def name-a "bouck, mervin adeline")
+
+(defn split-and-trim [s sep]
+  (map clojure.string/trim (clojure.string/split s sep)))
+
+(defn parse-name [s]
+  (let [comma-split (split-and-trim s #",")
+        comma-sp-ct (count comma-split)]  ; elements separated by comma
+    (cond (= comma-sp-ct 1)
+          (let [space-split (split-and-trim (first comma-split) #" ")
+                space-sp-ct (count space-split)]
+            (cond (= space-sp-ct 1)
+                  (first space-split)  ; first name only
+                  (= space-sp-ct 2)
+                  (str (first space-split) " " (second space-split))
+                  (= space-sp-ct 3)
+                  (let [[first-name middle-name last-name] space-split]
+                    (str first-name " " middle-name " " last-name))))
+          (= comma-sp-ct 2)
+          (let [last-name (first comma-split)
+                rest-names (second comma-split)]
+            (str rest-names " " last-name)))))
+
+(defn parse-entry [s]
+  (let [colon-split (split-and-trim s #":")
+        name (first colon-split)
+        ssn (second colon-split)]
+    {:ssn ssn, :name (parse-name name)}))
+
+(defn add-to-db [lines]
+  (let [ssn-db {}
+        ssn-order []
+        add-single (fn [line]
+                     (let [[ssn name] (parse-entry line)
+                           previous-name (ssn-db ssn)]
+                       ;; add to order list
+                       (if (not (some #{ssn} ssn-order))
+                         (conj ssn-order ssn))
+                       ;; replace name with longer form
+                       (if (> (count name) (count previous-name))
+                         (conj ssn-db [ssn name]))))]
+    (add-single "Kim:1")
+    (add-single "Kim, Nat: 1")    
+    (doseq [ssn ssn-order]
+      (print (str ssn " " (ssn-db ssn))))))
+
+(defn process-list [raw-lines]
+  (let [lines (rest (split-and-trim raw-lines #"\n"))
+        processed (map parse-entry lines)]
+    (reduce-list processed)))
+
+(defn reduce-list [lst]
+  (if (not lst)
+    '()
+    (do
+      (let [head (first lst)
+            second (second lst)
+            head-ssn (head :ssn)
+            head-name-length (count (head :name))
+            second-ssn (second :ssn)
+            second-name-length (count (second :name))]
+        (if (= head-ssn second-ssn)
+          (if (> head-name-length second-name-length)
+            (cons head (reduce-list (rest (rest lst))))
+            (cons second (reduce-list (rest (rest lst))))))))))
+
+
+(process-list "Lao:3
+kim:1
+Kim,N:1
+Z Kim:2
+Ans Z Kim:2")
+
+;; Comments/Judging
+;; Could not figure out how to keep local state (and adding a helper
+;; function seemed too messy), so relied on multiple layers of
+;; transformation. Ran out of time.
