@@ -1,3 +1,5 @@
+;;;; OBSOLETE, update hc-doc instead
+
 ;;;; TODO
 ;; alist
 

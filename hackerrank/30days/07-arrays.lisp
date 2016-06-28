@@ -1,0 +1,5 @@
+(defun print-list (lst)
+  (format t "~a" (car lst))
+  (when (cdr lst)
+    (format t " ")
+    (print-list (cdr lst))))
