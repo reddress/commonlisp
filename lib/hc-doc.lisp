@@ -1,8 +1,4 @@
 ;;;; TODO
-;; sort
-;; remove-if-not
-;; subseq
-;; push
 
 (in-package :hc)
 
@@ -75,6 +71,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; Function definitions
 ;; (add-fun FUN-NAME SIGNATURE LIST-OF-CATEGORIES DOC-STRING)
+;;
 ;; Add example calls in DOC-STRING
 ;;
 ;; (add-fun 'first "(first LST)" '(lists)
@@ -83,11 +80,13 @@
 ;;
 ;; Template:
 ;; (add-fun
-;;  '
-;;  ""
-;;  '()
-;;  "")
+;;  '       ; FUN-NAME
+;;  ""      ; SIGNATURE
+;;  '()     ; LIST-OF-CATEGORIES
+;;  "EXAMPLE CALL(S)~%
+;;   REMAINING DOCUMENTATION")
 
+;;;;;
 ;;; A
 
 (add-fun
@@ -120,16 +119,44 @@ Returns a sequence of RESULT-TYPE, containing elements of SEQUENCES.")
 
 (add-fun
  'cond
- "(cond CLAUSES*)"
+ "(cond CLAUSE*)"
  '(conditionals)
  "(cond ((= a 1) (setf a 2))
       ((= a 2)
        (print a)
        (print \"two\"))
       (t \"No matches.\"))~%
-CLAUSES are evaluated in order until its test is true.
+CLAUSEs are evaluated in order until its test is true.
 The associated forms are evaluated in order as an implicit progn.")
 
+;;; D
+
+(add-fun
+ 'do
+ "(do (VAR-FORM*) (END-TEST RESULT-FORM*) DECLARATION* STATEMENT*)"
+ '(loops controls)
+"VAR-FORM is (VAR INIT-FORM STEP-FORM)
+When TEST-FORM is true, RESULT-FORMs are evaluated.
+A DECLARATION is a DECLARE expression, and they are not evaluated.
+STATEMENTs are evaluated at each iteration.~%
+(do ((a 0 (+ a 1))
+     (b 12 (- b 1)))
+    ((> a b) a)
+  (format t \"a: ~~a~~%\" a)) => (prints a from 0 to 6 and returns 7)~%
+A general purpose loop that initializes variables and updates them
+in each iteration. Loop ends when the test returns true.")
+
+;;; E
+
+(add-fun
+ 'elt
+ "(elt SEQUENCE INDEX)"
+ '(sequences lists)
+ "(elt \"abc\" 2) => #\c
+(elt '(0 10 20 30) 2) => 20~%
+Returns the element of SEQUENCE at given INDEX. 0 is the first element.
+May be used with SETF.")
+ 
 ;;; F
 
 (add-fun
@@ -150,6 +177,8 @@ If DESTINATION is nil, a string is returned by the call to FORMAT.~%
   ~~A is the 'aesthetic' directive.
   ~~S generates output that can be read back with READ")
 
+;;; G
+
 (add-fun
  'gethash
  "(gethash KEY HASH-TABLE)"
@@ -157,3 +186,58 @@ If DESTINATION is nil, a string is returned by the call to FORMAT.~%
  "To set:
 (setf (gethash KEY HASH-TABLE) VALUE)")
 
+;;; N
+
+(add-fun
+ 'nth
+ "(nth N LST)"
+ '(lists)
+ "(nth 1 '(a b c)) => b~%
+Returns the nth element of LST, where 0 is the first element's index.
+May be used with SETF.~%
+Note: argument order is the opposite of (ELT SEQUENCE INDEX)")
+
+;;; P
+
+(add-fun
+ 'push
+ "(push ITEM PLACE)"
+ '(lists)
+ "(defparameter *lst* '())
+(push 1 *lst*) => (1), *lst* => (1)~%
+PUSH prepends ITEM to the list stored in PLACE.
+Cannot be used with literal lists.")
+
+;;; R
+
+(add-fun
+ 'remove-if-not
+ "(remove-if-not TEST SEQUENCE &key FROM-END START END COUNT KEY)"
+ '(lists functional)
+ "(remove-if-not #'oddp '(1 2 3 4 5 6)) => (1 3 5)~%
+Removes elements not matching TEST. Behaves like FILTER.")
+
+;;; S
+
+(add-fun
+ 'sort
+ "(sort SEQUENCE PREDICATE &key KEY)"
+ '(lists functional)
+ "(sort '(3 5 2 1 9 4 6) #'<) => (1 2 3 4 5 6 9)
+(sort '((7 6) (4 3) (6 5)) #'> :key #'car) => ((7 6) (6 5) (4 3))~%
+Destructively sort SEQUENCE according to PREDICATE.~%
+The argument to the KEY function is the SEQUENCE element.
+The return value of KEY becomes the argument to PREDICATE.~%
+Also: STABLE-SORT guarantees stability.")
+
+(add-fun
+ 'subseq
+ "(subseq SEQUENCE START &optional END)"
+ '(lists strings)
+ "(subseq \"012345\" 3 5) => \"34\"
+(subseq '(0 1 2 3 4) 1 3) => (1 2)~%
+Creates a sequence that is a copy of the subsequence bounded by
+START and END. The value at index START is included, but excludes END.~%
+Also: (setf (subseq SEQUENCE START &optional END) NEW-SUBSEQUENCE)
+will replace at most the number of elements in the given subseq with
+elements from NEW-SUBSEQUENCE.")
