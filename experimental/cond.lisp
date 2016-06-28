@@ -1,0 +1,6 @@
+(setf a 2)
+(cond ((= a 1) (setf a 2))
+      ((= a 2)
+       (print a)
+       (print 20))
+      (t "no match"))

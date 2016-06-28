@@ -1,4 +1,4 @@
-;;; TODO
+;;;; TODO
 ;; sort
 ;; remove-if-not
 ;; subseq
@@ -25,28 +25,37 @@
 ;; BEGIN DOCS
 
 ;;; A
-(add-fun 'add-fun "(add-fun FUN-NAME DOC)
+(add-fun 'add-fun "(add-fun FUN-NAME DOC)~%
 (add-fun 'first \"Returns the first element of a list.\") ~%
 Adds documentation for FUN-NAME to the *fun-db* DB hash-table.")
 
 ;;; C
-(add-fun 'coerce "(coerce OBJECT RESULT-TYPE)
+(add-fun 'coerce "(coerce OBJECT RESULT-TYPE)~%
 (coerce \"abc\" 'list) => (#\a #\b #\c)
 (coerce '(#\o #\k) 'string) => \"ok\"~%
 Returns an object of RESULT-TYPE with contents of original OBJECT.")
 
-(add-fun 'concatenate "(concatenate RESULT-TYPE &rest SEQUENCES)
+(add-fun 'concatenate "(concatenate RESULT-TYPE &rest SEQUENCES)~%
 (concatenate 'string \"Hello\" \" \" \"all\") => \"Hello all\"
 (concatenate 'list \"abc\" '(d e f) #(1 2 3))
   => (#\a #\b #\c D E F 1 2 3)~%
 Returns a sequence of RESULT-TYPE, containing elements of SEQUENCES.")
 
+(add-fun 'cond "(cond CLAUSES*)~%
+(cond ((= a 1) (setf a 2))
+      ((= a 2)
+       (print a)
+       (print \"two\"))
+      (t \"No matches.\"))~%
+CLAUSES are evaluated in order until its test is true.
+The associated forms are evaluated in order as an implicit progn.")
+
 ;;; F
-(add-fun 'first "(first LST)
+(add-fun 'first "(first LST)~%
 (first '(1 2 3)) => 1 ~%
 Returns the first element of LST.")
 
-(add-fun 'format "(format DESTINATION CONTROL-STRING &rest ARGS)
+(add-fun 'format "(format DESTINATION CONTROL-STRING &rest ARGS)~%
 (format t \"~~A~~%\" (+ 1 2)) => outputs 3 to *standard-output*
 (format nil \"~~S\" \"Hello\") => returns \"\\\"ok\\\"\"~%
 If DESTINATION is t, outputs formatted string to *standard-output*.
