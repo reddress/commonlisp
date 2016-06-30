@@ -1,15 +1,21 @@
-;;;; TODO
+;;;; TODO names to be added
 
 (in-package :hc)
 
 ;; Map alternate names to defined names
 (defparameter *cat-aliases*
   '(list lists
-    string strings
-    global globals
-    plist plists
-    function functions
     fileio file-io
+    function functions
+    global globals
+    hashtable hash-tables
+    hash-table hash-tables
+    hashtables hash-tables
+    number numbers
+    plist plists
+    predicate predicates
+    string strings
+    type types
     vector vectors
     variable variables))
 
@@ -86,8 +92,8 @@
 ;;  "EXAMPLE CALL(S)~%
 ;;   REMAINING DOCUMENTATION")
 
-;;;;;
-;;; A
+;;;;;;
+;;;; A
 
 (add-fun
  'add-fun
@@ -98,7 +104,17 @@
    \"Associates the DOC-STRING with FUN-NAME and given CATEGORIES\")~%
 Associates the DOC-STRING with FUN-NAME and given CATEGORIES")
 
-;;; C
+(add-fun
+ 'apropos
+ "(apropos NAME-OR-PART)"
+ '(doc)
+ "(apropos 'subst) => NSUBST  SUBST  SUBST-IF  ...  SUBSTR
+(apropos \"subst\") => NSUBST  SUBST  SUBST-IF  ...  SUBSTR~%
+Prints the name of objects and functions matching given NAME-OR-PART")
+
+;;;; B
+
+;;;; C
 
 (add-fun
  'coerce
@@ -129,7 +145,7 @@ Returns a sequence of RESULT-TYPE, containing elements of SEQUENCES.")
 CLAUSEs are evaluated in order until its test is true.
 The associated forms are evaluated in order as an implicit progn.")
 
-;;; D
+;;;; D
 
 (add-fun
  'do
@@ -146,7 +162,7 @@ STATEMENTs are evaluated at each iteration.~%
 A general purpose loop that initializes variables and updates them
 in each iteration. Loop ends when the test returns true.")
 
-;;; E
+;;;; E
 
 (add-fun
  'elt
@@ -156,8 +172,47 @@ in each iteration. Loop ends when the test returns true.")
 (elt '(0 10 20 30) 2) => 20~%
 Returns the element of SEQUENCE at given INDEX. 0 is the first element.
 May be used with SETF.")
- 
-;;; F
+
+(add-fun
+ 'eq
+ "(eq X Y)"
+ '(predicates)
+ "(eq #c(3 -4) #c(3 -4)) => NIL in CLISP
+(eq 123 123) => T
+(eq 100000000000000000 100000000000000000) => NIL~%
+True if X and Y are the same, identical object. Implementations may
+make copies of integers, so results may be T or NIL.")
+
+(add-fun
+ 'eql
+ "(eql X Y)"
+ '(predicates)
+ "(eql 3 3.0) => NIL
+(eql (cons 'a 'b) (cons 'a 'b)) => NIL
+(eql \"ab\" \"ab\") => NIL
+(eql #\A #\A) => T
+(eql 3 3) => T~%
+True if X and Y are EQ (are the same, identical object),
+are the same type of numbers with equal values, or
+are the same characters.~%
+If the implementation supports negative zeros as distinct from positive
+zero, (eql 0.0 -0.0) is NIL")
+
+(add-fun
+ 'equal
+ "(equal X Y)"
+ '(predicates)
+ "(equal 3 3) => T
+(equal 3 3.0) => NIL
+(equal \"Abc\" \"Abc\") => T
+(equal (cons 'a 'b) (cons 'a 'b)) => T~%
+True if X and Y are structurally similar. Conses are compared
+recursively. Strings and bit vectors are compared element-by-element.
+Pathnames are compared by components (such as host and device). Case
+sensitivity is implementation-dependent. All other objects are equal
+only if they are EQ.")
+       
+;;;; F
 
 (add-fun
  'first
@@ -177,16 +232,35 @@ If DESTINATION is nil, a string is returned by the call to FORMAT.~%
   ~~A is the 'aesthetic' directive.
   ~~S generates output that can be read back with READ")
 
-;;; G
+;;;; G
 
 (add-fun
  'gethash
  "(gethash KEY HASH-TABLE)"
- '(hashtables)
+ '(hash-tables)
  "To set:
 (setf (gethash KEY HASH-TABLE) VALUE)")
 
-;;; N
+;;;; H
+
+;;;; I
+
+;;;; J
+
+;;;; K
+
+;;;; L
+
+;;;; M
+
+(add-fun
+ 'make-hash-table
+ "(make-hash-table &key TEST SIZE REHASH-SIZE REHASH-THRESHOLD)"
+ '(hash-tables)
+ "Creates a new hashtable. TEST determines how the keys are compared.
+SIZE is a hint about how much initial space to allocate.")
+
+;;;; N
 
 (add-fun
  'nth
@@ -197,7 +271,17 @@ Returns the nth element of LST, where 0 is the first element's index.
 May be used with SETF.~%
 Note: argument order is the opposite of (ELT SEQUENCE INDEX)")
 
-;;; P
+(add-fun
+ 'numberp
+ "(numberp OBJECT)"
+ '(numbers predicates)
+ "(numberp 3) => T~%
+Checks if the type of OBJECT is a number~%
+Also: TYPE-OF")
+
+;;;; O
+
+;;;; P
 
 (add-fun
  'push
@@ -208,7 +292,9 @@ Note: argument order is the opposite of (ELT SEQUENCE INDEX)")
 PUSH prepends ITEM to the list stored in PLACE.
 Cannot be used with literal lists.")
 
-;;; R
+;;;; Q
+
+;;;; R
 
 (add-fun
  'remove-if-not
@@ -217,7 +303,24 @@ Cannot be used with literal lists.")
  "(remove-if-not #'oddp '(1 2 3 4 5 6)) => (1 3 5)~%
 Removes elements not matching TEST. Behaves like FILTER.")
 
-;;; S
+(add-fun
+ 'read
+ "(read &optional INPUT-STREAM EOF-ERROR-P EOF-VALUE RECURSIVE-P)"
+ '(io file-io)
+ "(read *standard-input* nil)~%
+Parses the printed representation of an object from INPUT-STREAM.
+If EOF-ERROR-P is nil, EOF-VALUE will be returned instead of causing
+an error.")
+
+(add-fun
+ 'read-line
+ "(read-line &optional INPUT-STREAM EOF-ERROR-P EOF-VALUE RECURSIVE-P)"
+ '(io file-io)
+ "Reads from INPUT-STREAM a line of text terminated by a newline or EOF.
+If EOF-ERROR-P is nil, EOF-VALUE will be returned instead of causing
+an error.")
+
+;;;; S
 
 (add-fun
  'sort
@@ -231,6 +334,14 @@ The return value of KEY becomes the argument to PREDICATE.~%
 Also: STABLE-SORT guarantees stability.")
 
 (add-fun
+ 'string-trim
+ "(string-trim CHARACTER-SEQUENCE STRING)"
+ '(strings)
+ "Returns a substring of STRING, with all characters from
+CHARACTER-SEQUENCE stripped off the beginning and end.~%
+Also: STRING-LEFT-TRIM, STRING-RIGHT-TRIM")
+
+(add-fun
  'subseq
  "(subseq SEQUENCE START &optional END)"
  '(lists strings)
@@ -241,3 +352,32 @@ START and END. The value at index START is included, but excludes END.~%
 Also: (setf (subseq SEQUENCE START &optional END) NEW-SUBSEQUENCE)
 will replace at most the number of elements in the given subseq with
 elements from NEW-SUBSEQUENCE.")
+
+;;;; T
+
+(add-fun
+ 'type-of
+ "(type-of OBJECT)"
+ '(types)
+ "(type-of 200) => INTEGER
+(type-of #'type-of) => COMPILED-FUNCTION~%
+Returns OBJECT's type specifier")
+
+;;;; U
+
+;;;; V
+
+;;;; W
+
+;;;; X
+
+;;;; Y
+
+;;;; Z
+
+(add-fun
+ 'zerop
+ "(zerop OBJECT)"
+ '(numbers predicates)
+ "(zerop 3) => NIL~%
+Returns T if OBJECT is 0")

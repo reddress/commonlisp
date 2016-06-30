@@ -8,4 +8,7 @@
 
 (defpackage :hc
   (:use :common-lisp
-        :pcl.unit-test))
+        :pcl.unit-test)
+  (:export :doc
+           :fun
+           :cat))

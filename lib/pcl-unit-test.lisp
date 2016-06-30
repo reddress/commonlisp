@@ -8,6 +8,10 @@
 ;;      TEST-N)
 ;;   FORMS-TO-FILL-IN-THE-BLANK)
 
+;; With test data
+;; (let ((VAR VALUE))
+;;   (deftest ...))
+
 ;; FORMS-TO-FILL-IN-THE-BLANK may be omitted if no blanks are used
 
 ;; EXAMPLE
@@ -62,8 +66,8 @@
                        ,result)))
 
 (defun report-result (result form)
-  ;; (format t "~:[*** FAIL~;Pass~]: ~a: ~a~%" result *test-name* form)
-  (format t "~:[*** FAIL~;Pass~]: ~a~%" result form)
+  ;; (format t "~:[--> FAIL~;Pass~]: ~a: ~a~%" result *test-name* form)
+  (format t "~:[--> FAIL~;Pass~]: ~a~%" result form)
   result)
 
 ;;;; custom functions for replacing the blank in unit tests

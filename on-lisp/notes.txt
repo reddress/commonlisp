@@ -1,0 +1,33 @@
+p. 101
+
+Avoid consing (in macro expansion/expanded code), which can ruin the
+performance of a program. The ill effects are compounded by how
+commonly the macro is used in the program.
+
+p. 103
+
+When a macro has to expand to a body of more than one expression, you
+have to add a PROGN. This step is needed because a macro must expand
+into a single expression.
+
+p. 104
+
+(defmacro sum (&rest args)
+  `(apply #'+ (list ,@args)))
+
+  or
+
+  `(+ ,@args)
+
+p. 109 Sec. 8.2 Macro or Function?
+
+Pros
+1. Computation at compile-time
+2. Integration with Lisp
+3. Saving function calls
+
+Cons
+4. Functions are data, while macros are instructions to the compiler
+5. Clarity of source code
+6. Clarity at runtime (harder to debug)
+7. Recursion (expansion may not be recursive)

@@ -51,3 +51,22 @@
 ;;; (setf a (construct-point 3 4))
 ;;; (point-x a)
 
+;; SLICE with negative indices
+(let ((str "abcdef"))
+  (deftest test-slice
+      ((equal "ab" (slice str 0 2))
+       (equal "f" (slice str -1))
+       (equal "ef" (slice str -2))
+       (equal "e" (slice str -2 -1)))))
+
+(defun slice (sequence given-start &optional given-end)
+  ;; "Calls SUBSEQ"
+  (let* ((len (length sequence))
+         (start (if (< given-start 0)
+                    (+ len given-start)
+                    given-start))
+         (end (when given-end
+                (if (< given-end 0)
+                    (+ len given-end)
+                    given-end))))
+    (subseq sequence start end)))
