@@ -5,6 +5,7 @@
 ;; Map alternate names to defined names
 (defparameter *cat-aliases*
   '(list lists
+    cons conses
     fileio file-io
     function functions
     global globals
@@ -12,6 +13,7 @@
     hash-table hash-tables
     hashtables hash-tables
     number numbers
+    object objects
     plist plists
     predicate predicates
     string strings
@@ -105,12 +107,32 @@
 Associates the DOC-STRING with FUN-NAME and given CATEGORIES")
 
 (add-fun
+ 'apply
+ "(apply FUNCTION &rest ARGS+)"
+ '(functional)
+ "(apply #'+ '(1 2 3)) => 6
+(apply #'+ 1 2 3 '(4 5)) => 15
+(apply (lambda (x y z) (* x y z)) '(3 4 5)) => 60~%
+Applies FUNCTION to ARGS.")
+
+(add-fun
  'apropos
  "(apropos NAME-OR-PART)"
  '(doc)
  "(apropos 'subst) => NSUBST  SUBST  SUBST-IF  ...  SUBSTR
 (apropos \"subst\") => NSUBST  SUBST  SUBST-IF  ...  SUBSTR~%
 Prints the name of objects and functions matching given NAME-OR-PART")
+
+(add-fun
+ 'atom
+ "(atom OBJECT)"
+ '(predicates objects)
+ "(atom 's) => T
+(atom (cons 1 2)) => NIL
+(atom nil) => T~%
+Returns true if OBJECT is of type ATOM. The opposite of CONSP.~%
+NIL is both an atom and a list.~%
+See also: CONSP")
 
 ;;;; B
 
@@ -144,6 +166,22 @@ Returns a sequence of RESULT-TYPE, containing elements of SEQUENCES.")
       (t \"No matches.\"))~%
 CLAUSEs are evaluated in order until its test is true.
 The associated forms are evaluated in order as an implicit progn.")
+
+(add-fun
+ 'consp
+ "(consp OBJECT)"
+ '(conses lists predicates)
+ "(consp (cons 1 2)) => T
+(consp '(1 2 3)) => T~%
+(consp nil) => NIL
+(consp ()) => NIL
+(consp '()) => NIL~%
+(consp (cons nil nil)) => T
+(consp '(())) => T~%
+Returns true if OBJECT is of type CONS. Note that NIL is not a CONS.
+NIL is both an atom and a list.~%
+The opposite of ATOM.~%
+See also: LISTP, ATOM")
 
 ;;;; D
 
@@ -251,6 +289,17 @@ If DESTINATION is nil, a string is returned by the call to FORMAT.~%
 
 ;;;; L
 
+(add-fun
+ 'listp
+ "(listp OBJECT)"
+ '(lists predicates)
+ "(listp nil) => T
+(listp (cons 1 2)) => T
+(listp t) => NIL~%
+Returns true for any kind of list, including (), NIL.~%
+NIL is both an atom and a list.~%
+See also: CONSP")
+
 ;;;; M
 
 (add-fun
@@ -277,7 +326,7 @@ Note: argument order is the opposite of (ELT SEQUENCE INDEX)")
  '(numbers predicates)
  "(numberp 3) => T~%
 Checks if the type of OBJECT is a number~%
-Also: TYPE-OF")
+See also: TYPE-OF")
 
 ;;;; O
 
@@ -331,7 +380,7 @@ an error.")
 Destructively sort SEQUENCE according to PREDICATE.~%
 The argument to the KEY function is the SEQUENCE element.
 The return value of KEY becomes the argument to PREDICATE.~%
-Also: STABLE-SORT guarantees stability.")
+Consider: STABLE-SORT guarantees stability.")
 
 (add-fun
  'string-trim
@@ -339,7 +388,7 @@ Also: STABLE-SORT guarantees stability.")
  '(strings)
  "Returns a substring of STRING, with all characters from
 CHARACTER-SEQUENCE stripped off the beginning and end.~%
-Also: STRING-LEFT-TRIM, STRING-RIGHT-TRIM")
+Consider: STRING-LEFT-TRIM, STRING-RIGHT-TRIM")
 
 (add-fun
  'subseq
@@ -349,7 +398,7 @@ Also: STRING-LEFT-TRIM, STRING-RIGHT-TRIM")
 (subseq '(0 1 2 3 4) 1 3) => (1 2)~%
 Creates a sequence that is a copy of the subsequence bounded by
 START and END. The value at index START is included, but excludes END.~%
-Also: (setf (subseq SEQUENCE START &optional END) NEW-SUBSEQUENCE)
+Consider: (setf (subseq SEQUENCE START &optional END) NEW-SUBSEQUENCE)
 will replace at most the number of elements in the given subseq with
 elements from NEW-SUBSEQUENCE.")
 

@@ -1,0 +1,2 @@
+;;;; Looking for functions and definitions to be added to hc-doc.lisp
+30 jun 2016 p. 171 Ch. 6
