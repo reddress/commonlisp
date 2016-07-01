@@ -1,0 +1,9 @@
+;;; PCL Ch. 3
+
+Backquote examples
+
+`(a (+ 1 2) c) => (list 'a '(+ 1 2) 'c)
+
+;; used for experimental/RPN-CALC to save from typing the quote
+(let ((a 'ann))
+  (list 'quote a)) => 'ann
