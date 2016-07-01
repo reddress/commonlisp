@@ -1,9 +1,9 @@
 ;;;; TODO names to be added
+;; mapc
 ;; mapcan
 ;; mappend
-;; member
+;; member ;; predicate to determine if an element is in list
 ;; case
-;; element in list
 
 (in-package :hc)
 

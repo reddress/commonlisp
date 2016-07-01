@@ -1,4 +1,4 @@
-;;; PCL Ch. 3
+;;; PCL Ch. 8
 
 Backquote examples
 

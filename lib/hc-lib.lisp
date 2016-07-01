@@ -70,3 +70,32 @@
                     (+ len given-end)
                     given-end))))
     (subseq sequence start end)))
+
+;; Returns a function that accepts a list,
+;; given a predicate to test each element.
+;; Applies function accum-true to values where predicate is true
+;; If accum-false is given, the function is applied to values
+;; where predicate is false.
+;; If accum-false is omitted, those values are not included
+;; in the result. Use #'identity to keep the false values.
+
+;; Example:
+;;
+;; (filter-transform
+;;  '("john" "kenneth" "larry" "lawrence" "margaret")
+;;  (lambda (s) (< (length s) 6))
+;;  #'string-upcase
+;;  #'identity)
+
+(defun filter-transform (lst predicate accum-true &optional accum-false)
+  (labels
+      ((iter (lst result)
+         (let ((head (car lst)))
+           (if (null lst)
+               (reverse result)
+               (if (funcall predicate head)
+                   (iter (cdr lst) (cons (funcall accum-true head) result))
+                   (if accum-false
+                       (iter (cdr lst) (cons (funcall accum-false head) result))
+                       (iter (cdr lst) result)))))))
+    (iter lst '())))
