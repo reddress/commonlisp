@@ -1,4 +1,9 @@
 ;;;; TODO names to be added
+;; mapcan
+;; mappend
+;; member
+;; case
+;; element in list
 
 (in-package :hc)
 
