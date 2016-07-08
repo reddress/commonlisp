@@ -2,6 +2,10 @@
 
 (in-package :hc)
 
+;;; shortcuts
+(defun cd-viva ()
+  (ext:cd #P"C:\\Users\\Heitor\\Desktop\\emacs-24.3\\bin\\vivajs.github.io\\tutorial\\content\\"))
+
 (defun range (n)
   (loop for i from 0 to (- n 1) collecting i))
 
