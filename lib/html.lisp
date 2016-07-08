@@ -22,7 +22,8 @@
 (defmacro with-html-to-file ((file &key (pretty *pretty*)) &body body)
   (pcl-with-gensyms (stream)
     `(with-open-file (,stream ,file :direction :output :if-exists :supersede)
-      (with-html-output (,stream :pretty ,pretty)
+       (with-html-output (,stream :pretty ,pretty)
+         (format ,stream "<!DOCTYPE html>~%")  ;; kludge
         ,@body))))
 
 (defmacro in-html-style (syntax)

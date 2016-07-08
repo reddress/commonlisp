@@ -32,6 +32,7 @@
   (:use :common-lisp
         :pcl.unit-test
         :com.gigamonkeys.html)
+  (:import-from :ext :cd)
   (:export :doc
            :fun
            :cat))

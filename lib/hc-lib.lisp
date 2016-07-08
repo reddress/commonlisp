@@ -4,7 +4,9 @@
 
 ;;; shortcuts
 (defun cd-viva ()
-  (ext:cd #P"C:\\Users\\Heitor\\Desktop\\emacs-24.3\\bin\\vivajs.github.io\\tutorial\\content\\"))
+  (if (equal (subseq (machine-instance) 7 11) "asus")
+      (ext:cd #P"/home/heitor/vivajs.github.io/tutorial/content/")
+      (ext:cd #P"C:\\Users\\Heitor\\Desktop\\emacs-24.3\\bin\\vivajs.github.io\\tutorial\\content\\")))
 
 (defun range (n)
   (loop for i from 0 to (- n 1) collecting i))
@@ -103,3 +105,7 @@
                        (iter (cdr lst) (cons (funcall accum-false head) result))
                        (iter (cdr lst) result)))))))
     (iter lst '())))
+
+(defmacro pcl-with-gensyms ((&rest names) &body body)
+  `(let ,(loop for n in names collect `(,n (gensym)))
+     ,@body))
