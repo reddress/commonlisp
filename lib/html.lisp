@@ -339,14 +339,18 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; SEXP-HTML
 
+;;; EDIT Move :script to *paragraph-elements*
+
 (defparameter *block-elements*
   '(:body :colgroup :dl :fieldset :form :head :html :map :noscript :object
-    :ol :optgroup :pre :script :select :style :table :tbody :tfoot :thead
+    :ol :optgroup :select :style :table :tbody :tfoot :thead
+    :pre
     :tr :ul))
 
 (defparameter *paragraph-elements*
   '(:area :base :blockquote :br :button :caption :col :dd :div :dt :h1
     :h2 :h3 :h4 :h5 :h6 :hr :input :li :link :meta :option :p :param
+    :script
     :td :textarea :th :title))
 
 (defparameter *inline-elements*
