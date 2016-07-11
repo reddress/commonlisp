@@ -377,6 +377,15 @@ an error.")
 ;;;; S
 
 (add-fun
+ 'setf
+ "(setf PLACE NEW-VALUE PLACE-2 NEW-VALUE-2 ...)"
+ '(variables)
+ "(setf (car x) 'a)
+Changes the value of PLACE to be NEW-VALUE. It is like saying,
+'See to it that PLACE evaluates to NEW-VALUE.'
+Pairs given to setf are processed sequentially.")
+
+(add-fun
  'sort
  "(sort SEQUENCE PREDICATE &key KEY)"
  '(lists functional)
