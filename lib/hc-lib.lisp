@@ -2,10 +2,6 @@
 
 (in-package :hc)
 
-;;; shortcuts
-(defun cd-viva ()
-  (ext:cd #P"C:\\Users\\Heitor\\Desktop\\emacs-24.3\\bin\\vivajs.github.io\\tutorial\\content\\"))
-
 (defun range (n)
   (loop for i from 0 to (- n 1) collecting i))
 
@@ -45,9 +41,9 @@
               ,@(interleave-kw-sym fields)))))
 
 ;; (defmacro defconstruct-old (struct-name &rest fields)
-  ;; http://stackoverflow.com/questions/5902847/how-do-i-apply-or-to-a-list-in-elisp/34946813#34946813
+;; http://stackoverflow.com/questions/5902847/how-do-i-apply-or-to-a-list-in-elisp/34946813#34946813
 ;;   (eval `(defstruct ,struct-name ,@fields))
-  
+
 ;;   `(defun ,(prepend-to-symbol "CONSTRUCT" struct-name) (,@fields)
 ;;      (,(prepend-to-symbol "MAKE" struct-name)
 ;;             ,@(interleave-kw-sym fields))))
@@ -103,3 +99,23 @@
                        (iter (cdr lst) (cons (funcall accum-false head) result))
                        (iter (cdr lst) result)))))))
     (iter lst '())))
+
+(defmacro pcl-with-gensyms ((&rest names) &body body)
+  `(let ,(loop for n in names collect `(,n (gensym)))
+     ,@body))
+
+;;; http://cl-cookbook.sourceforge.net/strings.html
+(defun replace-all (string part replacement &key (test #'char=))
+  "Returns a new string in which all the occurences of the part 
+is replaced with replacement."
+  (with-output-to-string (out)
+    (loop with part-length = (length part)
+       for old-pos = 0 then (+ pos part-length)
+       for pos = (search part string
+                         :start2 old-pos
+                         :test test)
+       do (write-string string out
+                        :start old-pos
+                        :end (or pos (length string)))
+       when pos do (write-string replacement out)
+       while pos)))
