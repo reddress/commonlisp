@@ -29,7 +29,7 @@
 
  [Hash] contains hash-tables
  
-L 1. Nothing but the Truth (elementary-problems-1-to-9)   14 jun 2016
+L 1. Nothing but the Truth (elementary-problems-1-to-9)     14 jun 2016
 L 2. Simple Math
 L 3. Intro to Strings
 L 4. Intro to Lists
@@ -38,7 +38,7 @@ L 6. Intro to Vectors
 L 7. Vectors: conj
 L 8. Intro to Sets
 L 9. Sets: conj
-L 10. Intro to Maps                                       14 jun 2016
+L 10. Intro to Maps
 L 11. Maps: conj
 L 12. Intro to Sequences
 L 13. Sequences: rest
@@ -49,14 +49,14 @@ L 17. Sequences: map
 L 18. Sequences: filter
 E 19. Last Element
 E 20. Penultimate Element
-E  * 21. Nth Element (R) *                                14 jun 2016
+E  * 21. Nth Element (R) *
 E 22. Count a Sequence
 E  * 23. Reverse a Sequence (I) *
 E 24. Sum It All Up
 E 25. Find the Odd Numbers
 E  * 26. Fibonacci Sequence (R) *
 E 27. Palindrome Detector
-E  * 28. Flatten a Sequence (R) *                         14 jun 2016
+E  * 28. Flatten a Sequence (R) *                           14 jun 2016
 E 29. Get the Caps
 E 30. Compress a Sequence
 E 31. Pack a Sequence
@@ -66,18 +66,18 @@ E 34. Implement range (I)
 L 35. Local Bindings
 L 36. Let it Be
 S L 37.     SKIP Regular Expressions
-E 38. Maximum Value                                       14 jun 2016
-E 39. Interleave Two Seqs (I)                             15 jun 2016
+E 38. Maximum Value                                         14 jun 2016
+E 39. Interleave Two Seqs (I)                               15 jun 2016
 E 40. Interpose a Seq (R)
 E 41. Drop Every Nth Item 
-E  * 42. Factorial Fun (R, I, F) *                        15 jun 2016
+E  * 42. Factorial Fun (R, I, F) *                          15 jun 2016
 M 43. Reverse Interleave
 M 44. Rotate Sequence
 S E 45.     SKIP Intro to Iterate
 M 46. Flipping out
 S E 47.     SKIP Contain Yourself
-E 48. Intro to some                                       15 jun 2016
-E 49. Split a Sequence                                    16 jun 2016
+E 48. Intro to some                                         15 jun 2016
+E 49. Split a Sequence                                      16 jun 2016
 M 50. Split by Type (A)
 E 51. Advanced Destructuring
 L 52. Intro to Destructuring
@@ -90,8 +90,8 @@ M  * 58. Function Composition (C) *
 M 59. Juxtaposition (A)
 M 60. Sequence Reductions (A)
 E 61. Map Construction (A) [Hash]
-E 62. Re-implement Iterate                                16 jun 2016
-E 63. Group a Sequence [Hash]                             17 jun 2016 
+E 62. Re-implement Iterate                                  16 jun 2016
+E 63. Group a Sequence [Hash]                               17 jun 2016 
 L 64. Intro to reduce
 S M 65.     SKIP Black Box Testing
 E 66. Greatest Common Divisor (I)
@@ -102,9 +102,9 @@ M 70. Word Sorting
 L 71. Rearranging code: ->
 L 72. Rearranging code: ->>
 # 73. (hard) Analyze a Tic-Tac-Toe board
-74. 
-75. 
-76. 
+M 74. Filter Perfect Squares                                13 jul 2016
+M 75. Euler's Totient Function 
+S M 76.     SKIP Intro to Trampoline
 77. 
 78. 
 79. 

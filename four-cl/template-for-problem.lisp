@@ -3,7 +3,7 @@
 C-x i (insert) setup.lisp
 
 ;;; __ gets replaced by SOLUTION
-(defproblem PROBLEM-NAME
+(deftest PROBLEM-NAME
     ((TEST)
      (equal (__ n) m)  ; example
      ...

@@ -31,3 +31,5 @@ Cons
 5. Clarity of source code
 6. Clarity at runtime (harder to debug)
 7. Recursion (expansion may not be recursive)
+
+p. 211 Lazy evaluation

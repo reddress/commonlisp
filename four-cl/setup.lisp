@@ -1,19 +1,7 @@
 ;;;; Number and Problem description
 ;;;; 
 
-;;;; using CLISP
-(if (string= "heitor-asus" (subseq (machine-instance) 0 11))  ; ubuntu
-    (ext:cd "/home/heitor/commonlisp/lib/")
-    ;;;; else, in Windows
-    (ext:cd "C:\\Users\\Heitor\\Desktop\\emacs-24.3\\bin\\commonlisp\\lib\\"))
-
-;;;; load unit-test framework
-(load "pcl-unit-test.lisp")
-
-;;;; full package name :io.github.heitorchang.four-cl
-(defpackage :four-cl
-  (:use :common-lisp :pcl.unit-test))
-(in-package :four-cl)
+(in-package :hc)
 
 ;;;; __ gets replaced by SOLUTION
 ;;

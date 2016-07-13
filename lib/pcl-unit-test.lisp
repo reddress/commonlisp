@@ -67,7 +67,7 @@
 
 (defun report-result (result form)
   ;; (format t "~:[--> FAIL~;Pass~]: ~a: ~a~%" result *test-name* form)
-  (format t "~:[--> FAIL~;Pass~]: ~a~%" result form)
+  (format t "~&~:[--> FAIL~;Pass~]: ~a~%" result form)
   result)
 
 ;;;; custom functions for replacing the blank in unit tests
