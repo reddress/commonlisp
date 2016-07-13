@@ -1,0 +1,2 @@
+
+(#S(|HC|::|TRANSACTION| :|DATE| "2016-07-07" :|NAME| "withdrawal" :|AMOUNT| 200. :|DEBIT| |HC|::|WAL| :|CREDIT| |HC|::|CHK|) #S(|HC|::|TRANSACTION| :|DATE| "2016-07-07" :|NAME| "rice" :|AMOUNT| 6. :|DEBIT| |HC|::|GROC| :|CREDIT| |HC|::|CHK|) #S(|HC|::|TRANSACTION| :|DATE| "2016-07-07" :|NAME| "open" :|AMOUNT| 3000. :|DEBIT| |HC|::|CHK| :|CREDIT| |COMMON-LISP|::|OPEN|)) 

@@ -1,0 +1,2 @@
+
+(#S(|HC|::|ACCOUNT| :|NAME| |HC|::|GROC| :|TYPE| |HC|::|EXPENSE|) #S(|HC|::|ACCOUNT| :|NAME| |HC|::|HOME| :|TYPE| |HC|::|EXPENSE|) #S(|HC|::|ACCOUNT| :|NAME| |HC|::|WAL| :|TYPE| |HC|::|ASSET|) #S(|HC|::|ACCOUNT| :|NAME| |HC|::|SAV| :|TYPE| |HC|::|ASSET|) #S(|HC|::|ACCOUNT| :|NAME| |HC|::|CHK| :|TYPE| |HC|::|ASSET|) #S(|HC|::|ACCOUNT| :|NAME| |HC|::|SAL| :|TYPE| |HC|::|INCOME|) #S(|HC|::|ACCOUNT| :|NAME| |COMMON-LISP|::|OPEN| :|TYPE| |HC|::|EQUITY|)) 
