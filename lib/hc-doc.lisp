@@ -22,6 +22,7 @@
     plist plists
     predicate predicates
     string strings
+    structure structures
     type types
     vector vectors
     variable variables))
@@ -189,6 +190,16 @@ The opposite of ATOM.~%
 See also: LISTP, ATOM")
 
 ;;;; D
+
+(add-fun
+ 'defconstruct
+ "(defconstruct STRUCT-NAME FIELD-1 FIELD-2 ...)"
+ '(structures)
+ "(defconstruct point x y)
+(defparameter *pt* (construct-point 3 4))
+(point-x *pt*)  ;; get
+(setf (point-x *pt*) 5)  ;; set~%
+Custom wrapper for DEFSTRUCT.")
 
 (add-fun
  'do

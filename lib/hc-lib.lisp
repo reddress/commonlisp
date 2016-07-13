@@ -34,6 +34,9 @@
       (cons (intern (symbol-name head) "KEYWORD") (cons head (interleave-kw-sym (cdr sym-lst)))))))
 
 ;;; (defconstruct point x y)
+;;; (defparameter *pt* (construct-point 3 4))
+;;; (point-x *pt*)  ;; get 
+;;; (setf (point-x *pt*) 5)  ;; set
 (defmacro defconstruct (struct-name &rest fields)
   `(progn (defstruct ,struct-name ,@fields)
           (defun ,(prepend-to-symbol "CONSTRUCT" struct-name) (,@fields)
@@ -48,8 +51,6 @@
 ;;      (,(prepend-to-symbol "MAKE" struct-name)
 ;;             ,@(interleave-kw-sym fields))))
 
-;;; (setf a (construct-point 3 4))
-;;; (point-x a)
 
 ;; SLICE with negative indices
 (let ((str "abcdef"))
