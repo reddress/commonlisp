@@ -35,11 +35,11 @@ function BinarySearchTree() {
     
     // Start of function levelOrder
     this.levelOrder = function(root) {
-      var queue = [];
+      let queue = [];
       if (root) {
         queue.push(root);
         while (queue.length > 0) {
-          tree = queue.shift();
+          let tree = queue.shift();
             process.stdout.write(tree.data + ' '); 
             if (tree.left) {
               queue.push(tree.left);

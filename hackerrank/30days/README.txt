@@ -1,0 +1,68 @@
+00 Hello World (CL) Print to standard out
+ 
+01 Data Types (JS) Read and convert types
+
+02 Operators (CL) Simple arithmetic
+
+03 Conditionals (CL) Consecutive conditional checks
+ 
+04 Class vs. instance (Py) Class definition
+ 
+05 Loops (CL) Increment an integer
+
+06 Let's Review (CL) Separate even and odd characters of a string
+ 
+07 Arrays (CL) Print a list in reverse
+ 
+08 Dictionaries (CL) Save and retrieve records in an address book
+
+09 Recursion (CL) Write a factorial function
+
+10 Binary numbers (CL) Count longest sequence of consecutive 1s
+ 
+11 2-D Arrays (CL) Sum of the integers forming an I shape in a grid
+ 
+12 Inheritance (Py) Calculate a Student's grade by subclassing a Person 
+
+13 Abstract classes (PHP) Implement an abstract "display()" method
+ 
+14 Scope (PHP) Find the maximum difference between two numbers in list
+
+15 Linked List (JS) Add a new node to the end of a linked list
+
+16 Exceptions (Py) Catch an exception if input cannot be read as integer
+ 
+17 More Exceptions (Py) Throw an exception if given inputs are negative
+
+18 Queues and Stacks (JS) Check if a string is a palindrome
+ 
+19 Interfaces (PHP) Implement a method of the given interface
+
+20 Sorting (CL) Count the number of swaps done in a bubble sort
+
+21 Generics (Java) Print arrays of various types
+
+22 Binary search trees (JS) Compute the height of a binary tree
+
+23 Binary search trees Order Traversal (JS) Print nodes in a
+   breadth-first traversal
+
+24 More Linked Lists
+
+25 Running Time and Complexity
+
+26 Nested Logic
+
+27 Testing
+
+28 RegEx, Patterns, and Intro to Databases
+
+29 Bitwise AND
+
+After completing #23:
+
+CL   ooooo ooooo o
+JS   ooooo
+Py   oooo
+PHP  ooo
+Java o

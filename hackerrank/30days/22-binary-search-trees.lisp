@@ -1,3 +1,5 @@
+;; Submitted a JavaScript solution, shown below
+
 (defun node (data)
   (list data nil nil))
 
