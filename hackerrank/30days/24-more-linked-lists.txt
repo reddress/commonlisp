@@ -1,0 +1,76 @@
+// JavaScript
+
+function Node(data){
+    this.data=data;
+    this.next=null;
+}
+function Solution(){
+
+// Recursive attempt (see linked-list-remove-duplicates.lisp)
+    this.removeDuplicates = function(head) {
+        if (head) {
+          if (head.data !== (head.next.data || null)) {
+            head.next = this.removeDuplicates(head.next);
+          } else {
+            return this.removeDuplicates(head.next);
+          }
+        } else {
+          return null;
+        }        
+    }
+
+    // Submitted
+    /*
+    this.removeDuplicates=function(head){
+      //Write your code here
+      let newListHead = new Node(head.data);
+      let newListCurrent = newListHead;
+      while (head = head.next) {
+        if (head.data > newListCurrent.data) {
+          newListCurrent.next = new Node(head.data);
+          newListCurrent = newListCurrent.next;
+        }
+      }
+      return newListHead;
+
+    }
+    */
+    
+    this.insert=function(head,data){
+        var p=new Node(data);
+        if(head==null){
+            head=p;
+        }
+        else if(head.next==null){
+            head.next=p;
+        }
+        else{
+            var start=head;
+            while(start.next!=null){
+                start=start.next;
+            }
+            start.next=p;
+        }
+        return head;
+        
+    };
+
+	this.display=function(head){
+        var start=head;
+            while(start){
+                console.log(start.data+" ");
+                start=start.next;
+            }
+    };
+}
+function main(){
+    var head=null;
+    var mylist=new Solution();
+    var data = [1,2,2,3,4,4];
+    for(i=0;i<data.length;i++){
+        head=mylist.insert(head,data[i]);
+    }
+    head=mylist.removeDuplicates(head);
+    mylist.display(head);
+}		
+main();

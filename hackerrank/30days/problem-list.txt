@@ -47,7 +47,7 @@
 23 Binary search trees Order Traversal (JS) Print nodes in a
    breadth-first traversal
 
-24 More Linked Lists
+24 More Linked Lists (JS) Remove consecutive duplicates
 
 25 Running Time and Complexity
 
@@ -59,10 +59,10 @@
 
 29 Bitwise AND
 
-After completing #23:
+After completing #24
 
 CL   ooooo ooooo o
-JS   ooooo
+JS   ooooo o
 Py   oooo
 PHP  ooo
 Java o
