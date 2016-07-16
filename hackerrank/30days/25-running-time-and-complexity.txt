@@ -1,0 +1,51 @@
+// JavaScript
+
+function isqrt(n) {
+  return Math.floor(Math.sqrt(n));
+}
+
+function isPrime(n) {
+    if (n === 1) {
+        console.log("Not prime");
+        return;
+    }
+    if (n === 2) {
+        console.log("Prime");
+        return;
+    }
+    var result;
+  for (var i = 2, limit = isqrt(n); i <= limit + 1; i++) {
+    
+    if (n % i === 0) {
+      result = false;
+      
+    }
+  }
+  if (result === false) {
+      console.log("Not prime");
+  } else {
+      console.log("Prime");
+  }
+}
+
+function processData(input) {
+    //Enter your code here
+    //console.log(input);
+    var lines = input.split("\n");
+    lines = lines.slice(1);
+    lines.forEach(function(line) {
+        //console.log(parseInt(line));
+        isPrime(parseInt(line));
+    })
+} 
+
+process.stdin.resume();
+process.stdin.setEncoding("ascii");
+_input = "";
+process.stdin.on("data", function (input) {
+    _input += input;
+});
+
+process.stdin.on("end", function () {
+   processData(_input);
+});
