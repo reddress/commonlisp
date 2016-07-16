@@ -1,2 +1,4 @@
-*.dat linguist-language=Java
-*.db linguist-language=Java
+*.db linguist-language=Common Lisp
+*.dat linguist-language=Common Lisp
+*.html linguist-language=Common Lisp
+*.txt linguist-language=Common Lisp
