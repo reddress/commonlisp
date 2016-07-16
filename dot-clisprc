@@ -9,3 +9,6 @@
 
 ;; load hc-lib
 (load #P"C:\\Users\\Heitor\\Desktop\\emacs-24.3\\bin\\commonlisp\\lib\\hc-lib.lisp")
+
+;; load html
+(load #P"C:\\Users\\Heitor\\Desktop\\emacs-24.3\\bin\\commonlisp\\lib\\html.lisp")

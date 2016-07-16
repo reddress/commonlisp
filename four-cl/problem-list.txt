@@ -105,7 +105,7 @@ L 72. Rearranging code: ->>
 M 74. Filter Perfect Squares                                13 jul 2016
 M 75. Euler's Totient Function 
 S M 76.     SKIP Intro to Trampoline
-77. 
+M  * 77. Anagram Finder *
 78. 
 79. 
 80. 
