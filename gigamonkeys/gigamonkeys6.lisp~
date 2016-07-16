@@ -1,1 +1,0 @@
-(defun foo (x) (setf x 10))
