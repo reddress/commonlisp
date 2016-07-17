@@ -31,20 +31,17 @@
           ;; (cons (cons (car new-leaves) (car branches)) (grow-no-good (cdr branches) new-leaves)))))
           (append (add-leaves (car branches) new-leaves) (grow-no-good (cdr branches) new-leaves)))))
 
-(defun grow (branches new-leaves)
-  (if (null branches)
-      '()
-      (append (add-leaves (car branches) new-leaves) (grow (cdr branches) new-leaves))))
-
-(add-leaves '() '(a b c))
-(grow '((a) (b) (c)) '(d e f))
-(grow (grow '((a) (b) (c)) '(d e f))
-      '(g h i))
-
 (defun add-leaves-with-replacement (branch leaves)
   (if (null leaves)
       '()
       (cons (cons (car leaves) branch) (add-leaves-with-replacement branch (cdr leaves)))))
+
+;;;; Working solution 
+
+(defun grow (branches new-leaves)
+  (if (null branches)
+      '()
+      (append (add-leaves (car branches) new-leaves) (grow (cdr branches) new-leaves))))
 
 (defun add-leaves (branch leaves)
   (if (null leaves)
@@ -57,3 +54,8 @@
   (if (<= levels 1)
       (add-leaves '() choices)
       (grow (permutation-tree choices (- levels 1)) choices)))
+
+(defun combinations (choices n)
+  (remove-duplicates 
+   (mapcar #'(lambda (x) (sort x #'>)) (copy-tree (permutation-tree choices n)))
+   :test #'equal))

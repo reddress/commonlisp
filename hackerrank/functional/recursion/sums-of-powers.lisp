@@ -3,9 +3,9 @@
         (result '()))
     (dotimes (i max)
       (let ((j (+ i 1)))
-        (push (cons (expt j n) j) result)))
+        ;; (push (cons (expt j n) j) result)))
+        (push (expt j n) result)))
     result))
-
 
 ;; Does not work, need to skip a value sometimes
 (defun search-sum (target accumulated-sum remaining-powered accumulated-integers)
@@ -30,63 +30,46 @@
           (incf solutions)))
     solutions))
 
-(defun combinations (lst)
-  (if (null lst)
+(defun grow (branches new-leaves)
+  (if (null branches)
       '()
-      (cons (list (car lst)))))
+      (append (add-leaves (car branches) new-leaves) (grow (cdr branches) new-leaves))))
 
+(defun add-leaves (branch leaves)
+  (if (null leaves)
+      '()
+      (if (not (member (car leaves) branch))
+          (cons (cons (car leaves) branch) (add-leaves branch (cdr leaves)))
+          (add-leaves branch (cdr leaves)))))
 
-(defun pick-one (lst items-left in-hand choices)
-  (if (= 0 items-left)
-      choices
-      (progn 
-        (dolist (n (rest lst))
-          (push (cons (car lst) (list n)) choices))
-        (pick-one (rest lst) (- items-left 1) '() '()))))
+(defun permutation-tree (choices levels)
+  (if (<= levels 1)
+      (add-leaves '() choices)
+      (grow (permutation-tree choices (- levels 1)) choices)))
 
-;; https://rosettacode.org/wiki/Combinations#Common_Lisp
- 
-(defun rosetta-combinations (m list fn)
-  (labels ((rosetta-combinations1 (l c m)
-             (when (>= (length l) m)
-               (if (zerop m) (return-from rosetta-combinations1 (funcall fn c)))
-               ;; (if (zerop m) (return-from rosetta-combinations1 c))
-               (rosetta-combinations1 (cdr l) c m)
-               (rosetta-combinations1 (cdr l) (cons (first l) c) (1- m)))))
-    (rosetta-combinations1 list nil m)))
- 
-(rosetta-combinations 5 (list-of-powered 100 2) #'print)
+(defun combinations (choices n)
+  (remove-duplicates 
+   (mapcar #'(lambda (x) (sort x #'>)) (copy-tree (permutation-tree choices n)))
+   :test #'equal))
 
-;; 1 2 3 4
-;; 1 2  /  1 3  /  1 4  /  2 3  /  2 4  /  3 4
-;; 1 2 3  /  1 2 4  /  1 3 4  /  2 3 4
-;; (a b c)
-;; (a) (b c)
-;; '(a b)
-;; '(a)
-;; '(b)
-;; '()
+(defun check-sum (lst target)
+  (= target (reduce #'+ lst)))
 
-(defun exclude (n lst)
-  ;; (1 2 (3) 4 5) -> (1 2 4 5)
-  (append (subseq lst 0 n) (nthcdr (+ n 1) lst)))
+(defun check-combinations (combinations target)
+  (count t (mapcar #'(lambda (x) (check-sum x target)) combinations)))
 
-(defun my-combination (n not-taken result)
-  (if (= 0 n)
-      result
-      (progn
-        (dolist (elem not-taken)
-          (format t "~a " elem)
-          (push (list elem) result))
-        (my-combination (- n 1) not-taken result))))
+(defun solution (x n)
+  (let ((total 0)
+        (list-of-powers (list-of-powered x n)))
+    (dotimes (i (length list-of-powers))
+      (incf total (check-combinations (combinations list-of-powers (+ i 1)) x)))
+    total))
 
-;; http://stackoverflow.com/questions/16396224/common-lisp-push-from-function
-(defun continue-taking (n not-taken result)
-  (if (= 0 n)
-      result
-      (progn
-        (dolist (choice result)   ;; is a futile push
-          (dolist (remaining not-taken)
-            (format t "~a " choice)
-            (push remaining choice)))
-        (continue-taking (- n 1) not-taken result))))
+(defun main ()
+  (let ((x (read))
+        (n (read)))
+    (format t "~a~%" (solution x n))))
+
+;; Stack overflows
+
+;; (main)
