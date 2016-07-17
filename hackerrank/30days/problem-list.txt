@@ -51,7 +51,7 @@
 
 25 Running Time and Complexity (JS) Determine if a number is prime
 
-26 Nested Logic
+26 Nested Logic (CL) Compare dates' year, month, and day
 
 27 Testing
 
@@ -59,9 +59,9 @@
 
 29 Bitwise AND
 
-After completing #25
+After completing #26
 
-CL   ooooo ooooo o
+CL   ooooo ooooo oo
 JS   ooooo oo
 Py   oooo
 PHP  ooo

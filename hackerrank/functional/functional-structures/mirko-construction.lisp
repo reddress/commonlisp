@@ -239,14 +239,6 @@
 
 ;; (defun max-index (lst) )
 
-(defparameter *buildings* (combine '(7 5 1) '(1 2 3)))
-
-(defparameter *queries* '(0 1 2 3 4 5))
-
-(defparameter *time-table* '())
-
-
-
 (defun read-space-sep-ints ()
   (read-from-string (concatenate 'string "(" (read-line) ")")))
 
@@ -260,6 +252,20 @@
                  (heights initial-heights build-rate (read))))))))
 
 ;; (main)
+
+;; (defparameter *buildings* (combine '(7 5 1) '(1 2 3)))
+
+;; (defparameter *queries* '(0 1 2 3 4 5))
+
+;; (defparameter *time-table* '())
+
+;; (defun fill-query-table ()
+;;   (dotimes (i (+ (reduce #'max *queries*) 1))
+;;     (setf *buildings* (discard-buildings *buildings*))
+;;     (print *buildings*)
+;;     (advance *buildings*)
+;;     (push (caar *buildings*) *time-table*)))
+
 
 
 ;;;;;;;;;;;;;;;;;;;;
@@ -275,6 +281,7 @@
   (cond ((= (second a) (second b)) (> (first a) (first b)))
         (t (> (second a) (second b)))))
 
+
 (defun discard-buildings (building-list)
   (let* ((sorted-buildings (stable-sort building-list #'building>))
          (start-highest (cadr (car sorted-buildings)))
@@ -286,38 +293,22 @@
   (dolist (building building-list)
     (incf (cadr building) (caddr building))))
 
-;; (defun fill-query-table ()
-;;   (dotimes (i (+ (reduce #'max *queries*) 1))
-;;     (setf *buildings* (discard-buildings *buildings*))
-;;     (print *buildings*)
-;;     (advance *buildings*)
-;;     (push (caar *buildings*) *time-table*)))
-
 (defun process (initial-heights build-rate queries)
   (let ((buildings (stable-sort (combine initial-heights build-rate) #'building>))
         (time-table '()))
-    ;; (print buildings)
-    ;; (format t "~%~%")
     (dotimes (i (+ (reduce #'max queries) 2))
       (push (caar buildings) time-table)
-      ;; (push (copy-tree buildings) time-table)
       (setf buildings (discard-buildings buildings))      
       (advance buildings)
       (setf buildings (stable-sort buildings #'building>)) )
-      ;; (push (caar buildings) time-table))
-    ;; (push (car buildings) time-table))
     (setf time-table (nreverse time-table))
-    ;; (print time-table)
-    ;; (terpri)
-    ;; (print queries)
-    ;; (terpri)
     (dolist (query queries)
       (format t "~A~%" (nth query time-table)))))
 
-;; (process '(7 5 1) '(1 2 3) '(0 1 2 3 4 5))
-
-(defun read-space-sep-ints ()
-  (read-from-string (concatenate 'string "(" (read-line) ")")))
+(defun read-n (n)
+  (if (= n 0)
+      '()
+      (cons (read) (read-n (- n 1)))))
 
 (defun read-list ()
   (let ((n (read *standard-input* nil)))  
@@ -326,13 +317,13 @@
         (cons n (read-list)))))
 
 (defun main ()
-  (destructuring-bind (num-buildings num-queries) (read-space-sep-ints)
-    (let ((initial-heights (read-space-sep-ints))
-          (build-rate (read-space-sep-ints))
+  (destructuring-bind (num-buildings num-queries) (read-n 2)
+    (let ((initial-heights (read-n num-buildings))
+          (build-rate (read-n num-buildings))
           (queries (read-list)))
       (process initial-heights build-rate queries))))
 
 ;; (main)
 
-(process *test-2-heights* *test-2-rates* *test-2-queries*)
+;; (process *test-2-heights* *test-2-rates* *test-2-queries*)
 (process '(7 5 1) '(1 2 3) '(0 1 2 3 4 5))

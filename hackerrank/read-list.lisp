@@ -8,6 +8,12 @@
         '()
         (cons n (read-list)))))
 
+;; READ A GIVEN NUMBER OF TIMES
+
+(defun read-n (n)
+  (if (= n 0)
+      '()
+      (cons (read) (read-n (- n 1)))))
 
 ;; READ ONE AT A TIME
 
