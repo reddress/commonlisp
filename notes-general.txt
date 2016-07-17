@@ -7,3 +7,9 @@ Backquote examples
 ;; used for experimental/RPN-CALC to save from typing the quote
 (let ((a 'ann))
   (list 'quote a)) => 'ann
+
+;; http://stackoverflow.com/questions/12253200/how-is-lisps-read-eval-print-loop-different-than-pythons
+
+REPL shortcuts for previous values
+*  **  and  ***  ;; results
++  ++  and  +++  ;; expressions themselves
