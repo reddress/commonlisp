@@ -53,15 +53,15 @@
 
 26 Nested Logic (CL) Compare dates' year, month, and day
 
-27 Testing
+27 Testing (CL) Write the input to a hidden, working function
 
 28 RegEx, Patterns, and Intro to Databases
 
 29 Bitwise AND
 
-After completing #26
+After completing #27
 
-CL   ooooo ooooo oo
+CL   ooooo ooooo ooo
 JS   ooooo oo
 Py   oooo
 PHP  ooo
