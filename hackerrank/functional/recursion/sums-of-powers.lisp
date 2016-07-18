@@ -1,4 +1,4 @@
-(defun list-of-powered (x n)
+(defun powered (x n)
   (let ((max (floor (expt x (/ 1 n))))
         (result '()))
     (dotimes (i max)
@@ -7,69 +7,32 @@
         (push (expt j n) result)))
     result))
 
-;; Does not work, need to skip a value sometimes
-(defun search-sum (target accumulated-sum remaining-powered accumulated-integers)
-  (format t "~a ~a ~a ~a~%" target accumulated-sum remaining-powered accumulated-integers)
-  (if (= accumulated-sum target)
-      (format t "ACCUM INT ~a~%" accumulated-integers)
-      (when remaining-powered
-        (let ((head (caar remaining-powered)))
-          (search-sum target
-                      (+ accumulated-sum head)
-                      (remove-if #'(lambda (p) (> (+ (car p) accumulated-sum head) target)) (rest remaining-powered))
-                      (push (cdar remaining-powered) accumulated-integers))))))
+(defun binary-string (length n)
+  (format nil (format nil "~~~a,'0b" length) n))
 
-;; (search-sum 1729 0 (nthcdr 2 (list-of-powered 1729 3)) '())
-;; (search-sum 100 2 (list-of-powered 100 2) '())  ; will not work
+(defun binary-string-to-list (str)
+  (mapcar #'(lambda (elem) (parse-integer (string elem))) (coerce str 'list)))
 
-(defun test-list-of-powers (target n)
-  (let ((powers (list-of-powered target n))
-        (solutions 0))
-    (dotimes (i (length powers))
-      (if (search-sum target 0 (nthcdr i powers) '())
-          (incf solutions)))
-    solutions))
+(defun binary-lists (length)
+  (let ((result '()))
+    (dotimes (i (expt 2 length))
+      (push (binary-string-to-list (binary-string length i)) result))
+    result))
 
-(defun grow (branches new-leaves)
-  (if (null branches)
-      '()
-      (append (add-leaves (car branches) new-leaves) (grow (cdr branches) new-leaves))))
+(defun check (target powered binary running-total)
+  (cond ((> running-total target) nil)
+        ((and (null powered) (= target running-total)) t)
+        ((null powered) nil)
+        (t (check target (cdr powered) (cdr binary) (+ running-total (* (car powered) (car binary)))))))
 
-(defun add-leaves (branch leaves)
-  (if (null leaves)
-      '()
-      (if (not (member (car leaves) branch))
-          (cons (cons (car leaves) branch) (add-leaves branch (cdr leaves)))
-          (add-leaves branch (cdr leaves)))))
+(defun compare (x n)
+  (let* ((powered (powered x n))
+         (binary-lists (binary-lists (length powered)))
+         (matches 0))
+    (dolist (binary-list binary-lists)
+      (if (check x powered binary-list 0)
+          (incf matches)))
+    matches))
 
-(defun permutation-tree (choices levels)
-  (if (<= levels 1)
-      (add-leaves '() choices)
-      (grow (permutation-tree choices (- levels 1)) choices)))
+;; 800 2 => 561
 
-(defun combinations (choices n)
-  (remove-duplicates 
-   (mapcar #'(lambda (x) (sort x #'>)) (copy-tree (permutation-tree choices n)))
-   :test #'equal))
-
-(defun check-sum (lst target)
-  (= target (reduce #'+ lst)))
-
-(defun check-combinations (combinations target)
-  (count t (mapcar #'(lambda (x) (check-sum x target)) combinations)))
-
-(defun solution (x n)
-  (let ((total 0)
-        (list-of-powers (list-of-powered x n)))
-    (dotimes (i (length list-of-powers))
-      (incf total (check-combinations (combinations list-of-powers (+ i 1)) x)))
-    total))
-
-(defun main ()
-  (let ((x (read))
-        (n (read)))
-    (format t "~a~%" (solution x n))))
-
-;; Stack overflows
-
-;; (main)
