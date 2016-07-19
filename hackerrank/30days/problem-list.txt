@@ -1,3 +1,5 @@
+21-jun-2016 to 20-jul 2016
+
 00 Hello World (CL) Print to standard out
  
 01 Data Types (JS) Read and convert types
@@ -55,13 +57,13 @@
 
 27 Testing (CL) Write the input to a hidden, working function
 
-28 RegEx, Patterns, and Intro to Databases
+28 RegEx, Patterns, and Intro to Databases (CL) Filter by email address,   regexes aren't necessary
 
 29 Bitwise AND
 
-After completing #27
+After completing #28
 
-CL   ooooo ooooo ooo
+CL   ooooo ooooo oooo
 JS   ooooo oo
 Py   oooo
 PHP  ooo
