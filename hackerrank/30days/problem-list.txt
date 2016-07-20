@@ -57,14 +57,14 @@
 
 27 Testing (CL) Write the input to a hidden, working function
 
-28 RegEx, Patterns, and Intro to Databases (CL) Filter by email address,   regexes aren't necessary
+28 RegEx, Patterns, and Intro to Databases (CL) Filter by email address,
+   regexes aren't necessary
 
-29 Bitwise AND
-
-After completing #28
-
-CL   ooooo ooooo oooo
-JS   ooooo oo
-Py   oooo
-PHP  ooo
-Java o
+29 Bitwise AND (CL) Apply logand (logical AND) to pairs of integers and
+   return the maximum result that is less than a given value
+ 
+CL   ooooo ooooo ooooo (15)
+JS   ooooo oo          (7)
+Py   oooo              (4)
+PHP  ooo               (3)
+Java o                 (1)
