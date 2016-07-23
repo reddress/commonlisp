@@ -1,9 +1,8 @@
 (defun check-longest (a b-raw)
   (let ((longest "")
-        (b (reverse b-raw))
-        (longest ""))
+        (b (reverse b-raw)))
     (dotimes (i (length a))
-      (let ((current-check (check-sequence-shorter (subseq a i) b)))
+      (let ((current-check (check-sequence (subseq a i) b)))
         (cond ((= (length current-check) (length longest))
                (if (string< current-check longest)
                    (setf longest current-check)))
@@ -16,21 +15,8 @@
         (check-string (concatenate 'string base "0"))
         (longest-sequence ""))
     (dotimes (i (+ base-len 2))
-      (if (search (subseq check-string 0 i) target)
-          (setf longest-sequence (subseq base 0 i))))
-    longest-sequence))
-
-(defun check-sequence-shorter (base target)
-  (let ((base-len (length base))
-        (check-string (concatenate 'string base "0"))
-        (longest-sequence ""))
-    (dotimes (i (+ base-len 2))
       (if (not (search (subseq check-string 0 i) target))
-          (return-from check-sequence-shorter (subseq base 0 (- i 1)))))))
-
-(check-longest "abc" "zzxbazzxxcbaww")
-
-(check-longest "qlabc" "zzxbazzxxadabaww")
+          (return-from check-sequence (subseq base 0 (- i 1)))))))
 
 (defun string-with-right-of (substr str)
   (if (= (length substr) 0)
@@ -60,9 +46,14 @@
                 ((string< left right) left)
                 (t right)))
          (palindrome
-          (if (string= chosen "-1") "-1"
-              (concatenate 'string chosen (subseq (reverse chosen) 1)))))
+          (cond ((string= chosen "-1") "-1")
+                ((string= left right) (concatenate 'string chosen (reverse chosen)))
+                (t (concatenate 'string chosen (subseq (reverse chosen) 1))))))
     palindrome))
 
-(defun build-right-palindrome (a b)
-  (build-left-palindrome (reverse a) (reverse b)))
+(defun main ()
+  (let ((num-tests (read)))
+    (dotimes (i num-tests)
+      (format t "~A~%" (build-left-palindrome (read-line) (read-line))))))
+
+;; (main)
