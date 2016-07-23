@@ -1,4 +1,4 @@
-  ;; read INPUT-STREAM EOF-ERROR-P (set to nil to avoid default error
+;; read INPUT-STREAM EOF-ERROR-P (set to nil to avoid default erro
 
 ;; READ CONSECUTIVE LINES
 
@@ -18,8 +18,8 @@
 ;; READ ONE AT A TIME
 
 (let ((num-inputs (read)))
-     (dotimes (i num-inputs)
-         (format t "~A~%" (MY-SOLUTION-FUNCTION (read)))))
+  (dotimes (i num-inputs)
+    (format t "~A~%" (MY-SOLUTION-FUNCTION (read)))))
 
 
 (defun process-lines ()
@@ -38,6 +38,7 @@
 (defun str-to-list (str)
   (read-from-string (concatenate 'string "(" str ")")))
 
+;;;; PRINT A LIST
 
 (defun print-list-one-per-line (lst)
   (format t "~{~d~%~}" lst))
