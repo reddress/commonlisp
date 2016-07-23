@@ -1,0 +1,1 @@
+- cleaner way of obtaining combinations and permutations
