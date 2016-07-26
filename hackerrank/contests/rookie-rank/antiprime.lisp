@@ -1,0 +1,18 @@
+(defun first-divisor (n)
+  (dotimes (i (isqrt n))
+    (let ((j (+ i 2)))
+      (if (= 0 (rem n j))
+          (return-from first-divisor j))))
+  n)
+  
+(defun factor (n)
+  (if (< n 2)
+      '()
+      (let ((divisor (first-divisor n)))
+        (cons divisor (factor (/ n divisor)))))) 
+
+(defun build-factors-table (n)
+  (let ((result '()))
+    (dotimes (i n)
+      (push (length (factor i)) result))
+    result))
