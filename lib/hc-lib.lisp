@@ -2,8 +2,18 @@
 
 (in-package :hc)
 
-(defun range (n)
-  (loop for i from 0 to (- n 1) collecting i))
+;; (defun range (n)
+;;   (loop for i from 0 to (- n 1) collecting i))
+
+;;; http://stackoverflow.com/questions/13937520/pythons-range-analog-in-common-lisp
+(defun range (max &optional (min 0) (step 1))
+  (if (not (equal min 0))
+      ;; interpret second argument as max
+      (loop for n from max below min by step
+         collect n)
+      ;; else consider first argument to be max
+      (loop for n from min below max by step
+         collect n)))
 
 (defun repeat (n x)
   (loop for i from 1 to n collecting x))
