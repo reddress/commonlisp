@@ -2,6 +2,12 @@
 
 (in-package :hc)
 
+;; calendar age
+(defun person-age (day month year)
+  (let ((now (get-universal-time)))
+    (/ (- now (encode-universal-time 0 0 12 day month year)) 60 60 24 365.25)))
+        
+
 ;; (defun range (n)
 ;;   (loop for i from 0 to (- n 1) collecting i))
 
