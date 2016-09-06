@@ -111,7 +111,7 @@
     (let ((answer (read)))
       (if (equal (nth (mod answer 12) mod-list) sign)
           (format t "Very good.~%")
-          (format t "No, ~a is a year of the ~a.~%" answer (nth (- (mod answer 12) 3) chinese-signs))))))
+          (format t "No, ~a is a year of the ~a.~%" answer (mod (nth (- (mod answer 12) 3)) 12 chinese-signs))))))
 
 ;; (defun range (n)
 ;;   (loop for i from 0 to (- n 1) collecting i))
