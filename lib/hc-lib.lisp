@@ -2,11 +2,82 @@
 
 (in-package :hc)
 
+;; woo-woo
+;; western zodiac
+(defparameter western-signs
+  '(aquarius pisces aries taurus gemini cancer leo virgo libra scorpio sagittarius capricorn))
+
+(defparameter western-zodiac (make-hash-table))
+(setf (gethash 'aquarius    western-zodiac) '((1 20) (2 18)))
+(setf (gethash 'pisces      western-zodiac) '((2 19) (3 20)))
+(setf (gethash 'aries       western-zodiac) '((3 21) (4 19)))
+(setf (gethash 'taurus      western-zodiac) '((4 20) (5 20)))
+(setf (gethash 'gemini      western-zodiac) '((5 21) (6 20)))
+(setf (gethash 'cancer      western-zodiac) '((6 21) (7 22)))
+(setf (gethash 'leo         western-zodiac) '((7 23) (8 22)))
+(setf (gethash 'virgo       western-zodiac) '((8 23) (9 22)))
+(setf (gethash 'libra       western-zodiac) '((9 23) (10 22)))
+(setf (gethash 'scorpio     western-zodiac) '((10 23) (11 21)))
+(setf (gethash 'sagittarius western-zodiac) '((11 22) (12 21)))
+(setf (gethash 'capricorn   western-zodiac) '((12 22) (12 31)))  ; hack to avoid adding a new year. Actual end date is (1 19)
+
+(defparameter chinese-zodiac (make-hash-table))
+(setf (gethash 'rat     chinese-zodiac) 1)
+(setf (gethash 'ox      chinese-zodiac) 2)
+(setf (gethash 'tiger   chinese-zodiac) 3)
+(setf (gethash 'rabbit  chinese-zodiac) 4)
+(setf (gethash 'dragon  chinese-zodiac) 5)
+(setf (gethash 'snake   chinese-zodiac) 6)
+(setf (gethash 'horse   chinese-zodiac) 7)
+(setf (gethash 'sheep   chinese-zodiac) 8)
+(setf (gethash 'monkey  chinese-zodiac) 9)
+(setf (gethash 'rooster chinese-zodiac) 10)
+(setf (gethash 'dog     chinese-zodiac) 11)
+(setf (gethash 'pig     chinese-zodiac) 12)
+
+(defparameter chinese-offset 1971)
+
 ;; calendar age
-(defun person-age (day month year)
+(defun person-age-dmy (day month year)
   (let ((now (get-universal-time)))
     (/ (- now (encode-universal-time 0 0 12 day month year)) 60 60 24 365.25)))
-        
+
+(defun person-age (date)
+  (let ((now (get-universal-time)))
+    (/ (- now date) 60 60 24 365.25)))
+
+
+;; date in between two given dates
+(defun date-midpoint (a b)
+  (multiple-value-bind (s m h d m y)
+      (decode-universal-time (/ (+ a b) 2))
+    ;; (format t "~a/~a/~a" y m d)))
+    (encode-universal-time 0 0 12 d m y)))
+
+(defun format-date (d)
+  (multiple-value-bind (s m h d m y)
+      (decode-universal-time d)
+    (format t "~a/~a/~a" d m y)))
+
+;; compute average date for given western sign
+(defun average-western (sign-name &optional (year 2015))
+  (let* ((begin-md (car (gethash sign-name western-zodiac)))
+         (end-md (cadr (gethash sign-name western-zodiac)))
+         (begin-date (encode-universal-time 0 0 12 (cadr begin-md) (car begin-md) year))
+         (end-date (encode-universal-time 0 0 12 (cadr end-md) (car end-md) year)))
+    (date-midpoint begin-date end-date)))
+
+(defun age-of (western-sign-name chinese-sign-name)
+  (let* ((year (+ chinese-offset (gethash chinese-sign-name chinese-zodiac)))
+         (date (average-western western-sign-name year))
+         (second-age (person-age date))
+         (first-age (- second-age 12)))
+    (format t "~,1f ~,1f ~a~%"  first-age second-age western-sign-name)))
+
+;; shortcuts
+(defun chinese-age (chinese-sign)
+  (dolist (western-sign western-signs)
+    (age-of western-sign chinese-sign)))
 
 ;; (defun range (n)
 ;;   (loop for i from 0 to (- n 1) collecting i))
