@@ -7,6 +7,7 @@
 (defparameter western-signs
   '(aquarius pisces aries taurus gemini cancer leo virgo libra scorpio sagittarius capricorn))
 
+;; reading down is younger
 (defparameter western-zodiac (make-hash-table))
 (setf (gethash 'aquarius    western-zodiac) '((1 20) (2 18)))
 (setf (gethash 'pisces      western-zodiac) '((2 19) (3 20)))
@@ -21,6 +22,7 @@
 (setf (gethash 'sagittarius western-zodiac) '((11 22) (12 21)))
 (setf (gethash 'capricorn   western-zodiac) '((12 22) (12 31)))  ; hack to avoid adding a new year. Actual end date is (1 19)
 
+;; reading down is younger
 (defparameter chinese-zodiac (make-hash-table))
 (setf (gethash 'rat     chinese-zodiac) 1)
 (setf (gethash 'ox      chinese-zodiac) 2)
