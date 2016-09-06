@@ -22,6 +22,10 @@
 (setf (gethash 'sagittarius western-zodiac) '((11 22) (12 21)))
 (setf (gethash 'capricorn   western-zodiac) '((12 22) (12 31)))  ; hack to avoid adding a new year. Actual end date is (1 19)
 
+;; chinese zodiac
+(defparameter chinese-signs
+  '(pig rat ox tiger rabbit dragon snake horse sheep monkey rooster dog))  ;; set PIG to zeroth index (12 mod 12 is 0)
+
 ;; reading down is younger
 (defparameter chinese-zodiac (make-hash-table))
 (setf (gethash 'rat     chinese-zodiac) 1)
@@ -76,10 +80,28 @@
          (first-age (- second-age 12)))
     (format t "~,1f ~,1f ~a~%"  first-age second-age western-sign-name)))
 
-;; shortcuts
+;; zodiac shortcuts
 (defun chinese-age (chinese-sign)
   (dolist (western-sign western-signs)
     (age-of western-sign chinese-sign)))
+
+;; chinese-zodiac quiz
+
+;; define a chinese year as the range where a sign is certain.
+;; that is, avoid the gray area 21-jan to 19-feb.
+
+(defun ask-for-chinese-sign (yr)  ;; yr is a debug variable, should be removed and then uncomment the 'random' line
+  (setf *random-state* (make-random-state t))
+  ;; (let* ((year (+ 1936 (random 80)))
+  (let* ((year yr)
+         (offset (- year chinese-offset))
+         (order (mod offset 12))
+         (sign (nth order chinese-signs)))
+    (format t "What is the Sign of the year beginning 20 Feb. ~a? " year)
+    (let ((answer (read)))
+      (if (equal answer sign)
+          (format t "Very good.~%")
+          (format t "No, the sign is ~a.~%" sign)))))
 
 ;; (defun range (n)
 ;;   (loop for i from 0 to (- n 1) collecting i))
