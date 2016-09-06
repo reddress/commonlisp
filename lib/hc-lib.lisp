@@ -107,7 +107,7 @@
   (setf *random-state* (make-random-state t))
   (let* ((order (position sign chinese-signs))
          (mod-list '(monkey rooster dog pig rat ox tiger rabbit dragon snake horse sheep)))
-    (format t "Give me a year of ~a. " sign)
+    (format t "Give me a year (between 1970 and 1989) of the ~a. " sign)
     (let ((answer (read)))
       (if (equal (nth (mod answer 12) mod-list) sign)
           (format t "Very good.~%")
