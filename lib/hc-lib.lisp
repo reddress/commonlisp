@@ -2,7 +2,30 @@
 
 (in-package :hc)
 
+;; Chinese zodiac user's guide
 ;; woo-woo
+
+;; Given a year (past 20 Feb.), get the Chinese sign
+;; (sign 1978)
+;; ;; HORSE
+
+;; Given a Chinese sign, get a list of years (past 20 Feb.)
+;; (year 'horse)
+;; ;; (1954 1966 1978 1990 2002)
+
+;; Given a Chinese sign, get a list of ages (assuming the person completed
+;;   his or her birthday)
+;; (age 'horse)
+;; ;; (14 26 38 50 62)
+
+;; Given a Chinese sign, determine a person's age based on their Western
+;;   sign
+;; (chinese-age 'sheep)
+;; ;; 25.6 37.6 AQUARIUS
+;; ;; 25.5 37.5 PISCES
+;; ;; ...
+;; ;; 24.7 36.7 CAPRICORN
+
 ;; western zodiac
 (defparameter western-signs
   '(aquarius pisces aries taurus gemini cancer leo virgo libra scorpio sagittarius capricorn))
@@ -125,9 +148,24 @@
           (format t "No, ~a is a year of the ~a.~%" answer
                   (nth (mod (- (mod answer 12) 3) 12) chinese-signs))))))
 
-(defun chinese-sign-given-year (yr)
+(defun sign (yr)
   (nth (mod yr 12) chinese-signs-normalized))
 
+(defun year (sign)
+  (let ((base-year (+ chinese-offset (position sign chinese-signs))))
+    (list (- base-year 24) (- base-year 12) base-year (+ base-year 12) (+ base-year 24))))
+
+(defun years (sign)
+  (year sign))
+
+(defun person-age-by-year (birth-year)
+  (multiple-value-bind (s m h d m y)
+      (decode-universal-time (get-universal-time))
+    (- y birth-year)))
+
+(defun age (sign)
+  (reverse (mapcar #'person-age-by-year (year sign))))
+  
 ;; (defun range (n)
 ;;   (loop for i from 0 to (- n 1) collecting i))
 
