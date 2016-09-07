@@ -24,7 +24,18 @@
 
 ;; chinese zodiac
 (defparameter chinese-signs
-  '(pig rat ox tiger rabbit dragon snake horse sheep monkey rooster dog))  ;; set PIG to zeroth index (12 mod 12 is 0)
+  '(pig rat ox tiger rabbit dragon snake horse sheep monkey rooster dog))
+;; 12/0  1   2   3      4      5     6     7     8      9      10    11 
+;; set PIG to zeroth index (12 mod 12 is 0)
+
+;; Method:
+;; Given a sign, say SHEEP, find its position = 8
+;; Add this position to a multiple of 12 : 12 24 36 48 60 72 84 96 108
+;; Add 1900 to find the ENDPOINT in the Gregorian calendar of the Chinese yr
+;; That is, the Year of the Sheep ENDED in 1980, and began in 1979.
+
+(defparameter chinese-signs-normalized
+  '(monkey rooster dog pig rat ox tiger rabbit dragon snake horse sheep))
 
 ;; reading down is younger
 (defparameter chinese-zodiac (make-hash-table))
@@ -113,6 +124,9 @@
           (format t "Very good.~%")
           (format t "No, ~a is a year of the ~a.~%" answer
                   (nth (mod (- (mod answer 12) 3) 12) chinese-signs))))))
+
+(defun chinese-sign-given-year (yr)
+  (nth (mod yr 12) chinese-signs-normalized))
 
 ;; (defun range (n)
 ;;   (loop for i from 0 to (- n 1) collecting i))
