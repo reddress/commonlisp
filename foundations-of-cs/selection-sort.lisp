@@ -17,3 +17,14 @@
     working-list))
 
 (selection-sort *list*)
+
+;;; p. 33
+;;; destructive sort
+(defun sel-sort (lst) 
+  (for++ i 0 (- (length lst) 1)
+         (let ((small i)) 
+           (for++ j (1+ i) (length lst) 
+                  (if (< (nth j lst) (nth small lst)) 
+                      (setf small j) ))
+           (rotatef (nth small lst) (nth i lst))))
+  lst)  ;; return lst for convenience
