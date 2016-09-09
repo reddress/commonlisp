@@ -294,3 +294,10 @@ is replaced with replacement."
                         :end (or pos (length string)))
        when pos do (write-string replacement out)
        while pos)))
+
+;;; FOR loop replacement
+;; for (i = start; i < end; i++) { ... }
+(defmacro for++ (var-name start end &body body)
+  `(do ((,var-name ,start (+ ,var-name 1)))
+       ((>= ,var-name ,end) nil)
+     ,@body))
