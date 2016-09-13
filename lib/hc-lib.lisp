@@ -301,3 +301,28 @@ is replaced with replacement."
   `(do ((,var-name ,start (+ ,var-name 1)))
        ((>= ,var-name ,end) nil)
      ,@body))
+
+;;;; Math
+
+;;; log base b of x
+(defun logb (base x)
+  (/ (log x) (log base)))
+
+;;; factorial
+(defun ! (n)
+  (fact-iter n 1))
+
+(defun fact-iter (n result)
+  (if (< n 2)
+      result
+      (fact-iter (- n 1) (* n result))))
+
+;;; permutations of m items out of n
+(defun npm (n m)
+  (/ (! n) (! (- n m))))
+
+;;; n choose m
+(defun ncm (n m)
+  ;; (/ (! n) (! (- n m)) (! m)))
+  (/ (npm n m) (! m)))  ;; express in terms of npm, divided by the number of orders of the m items
+
