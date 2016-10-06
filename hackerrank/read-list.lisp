@@ -21,6 +21,11 @@
   (dotimes (i num-inputs)
     (format t "~A~%" (MY-SOLUTION-FUNCTION (read)))))
 
+;; READ UNTIL EOF (from Practical Common Lisp)
+
+(loop for line = (read-line *standard-input* nil)
+   while line do (DO-SOMETHING-WITH-line))
+
 
 (defun process-lines ()
   (let ((line (read-line *standard-input* nil)))
