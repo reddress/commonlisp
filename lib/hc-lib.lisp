@@ -326,3 +326,7 @@ is replaced with replacement."
   ;; (/ (! n) (! (- n m)) (! m)))
   (/ (npm n m) (! m)))  ;; express in terms of npm, divided by the number of orders of the m items
 
+;;; Randomizer
+
+(defun make-random ()
+  (setf *random-state* (make-random-state t)))
