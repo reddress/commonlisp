@@ -339,6 +339,11 @@ is replaced with replacement."
       ""
       (concatenate 'string s (repeat-str s (- n 1)))))
 
+;;; Math
+
+(defun average (&rest lst)
+  (/ (reduce #'+ lst) (length lst) 1.0))
+
 ;;; change base
 
 (defun dec-to-new-base (base pad n)
@@ -356,5 +361,15 @@ is replaced with replacement."
           (char (code-char i)))
       (format t "~a ~a ~a ~a ~a~%" code char dec char code))))
 
-(defun average (&rest lst)
-  (/ (reduce #'+ lst) (length lst) 1.0))
+(defun char-to-new-base (c base offset)
+  (dec-to-new-base base 3 (- (char-code c) offset)))
+
+(defun str-to-code (s base offset)
+  (mapcar #'(lambda (c) (char-to-new-base c base offset)) (coerce s 'list)))
+
+(defun parse-code-elem (s base offset)
+  (string (code-char (+ offset (parse-integer s :radix base)))))
+
+(defun parse-code-str (s base offset)
+  (let ((code-elems (split #\Space s)))
+    (format t "~{~a~^~}" (mapcar #'(lambda (elem) (parse-code-elem elem base offset)) code-elems))))
