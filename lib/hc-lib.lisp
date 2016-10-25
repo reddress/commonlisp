@@ -355,3 +355,6 @@ is replaced with replacement."
           (dec (dec-to-new-base 10 2 (- i (- begin 1))))
           (char (code-char i)))
       (format t "~a ~a ~a ~a ~a~%" code char dec char code))))
+
+(defun average (&rest lst)
+  (/ (reduce #'+ lst) (length lst) 1.0))
