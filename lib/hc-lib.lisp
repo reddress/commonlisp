@@ -330,3 +330,28 @@ is replaced with replacement."
 
 (defun make-random ()
   (setf *random-state* (make-random-state t)))
+
+;;; String functions
+
+(defun repeat-str (s n)
+  ;; repeat string s, n number of times
+  (if (<= n 0)
+      ""
+      (concatenate 'string s (repeat-str s (- n 1)))))
+
+;;; change base
+
+(defun dec-to-new-base (base pad n)
+  (let* ((base-string (concatenate 'string (concatenate 'string "~" (write-to-string base)) "r"))
+         (new-base (format nil base-string n))
+         (new-base-len (length new-base))
+         (zeros-needed (- pad new-base-len))
+         (zeros (repeat-str (if (< pad 3) " " "0") zeros-needed)))
+    (concatenate 'string zeros new-base)))
+
+(defun code-range (begin end base)
+  (dolist (i (range begin end))
+    (let ((code (dec-to-new-base base 3 (- i (- begin 1))))
+          (dec (dec-to-new-base 10 2 (- i (- begin 1))))
+          (char (code-char i)))
+      (format t "~a ~a ~a ~a ~a~%" code char dec char code))))
