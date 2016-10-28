@@ -387,7 +387,7 @@ is replaced with replacement."
       (code-char (+ 64 i))))
 
 (defun vigenere-encode-letter (plain-char key-char)
-  (index-to-char (mod (+ -1 (char-to-index plain-char) (char-to-index key-char)) 26)))
+  (index-to-char (mod (+ (char-to-index plain-char) (char-to-index key-char) -1) 26)))  ;; (P + K - 1) mod 26
 
 (defun repeat-key (key length)
   (let* ((key-length (length key))
@@ -412,7 +412,7 @@ is replaced with replacement."
   (let* ((plaintext (normalize-string s))
          (key (normalize-string k))
          (repeated-key (repeat-key key (length plaintext))))
-    (format t "Key     :  ~A~%" key)
+    ;; (format t "Key     :  ~A~%" key)
     (format t "Plaintext: ~A~%" plaintext)
     (format t "KeyString: ~A~%" repeated-key)
     (format t "~%")
@@ -422,17 +422,70 @@ is replaced with replacement."
              (coerce (repeat-key key (length plaintext)) 'list)) 'string)))
 
 (defun vigenere-decode-letter (cipher-char key-char)
-  (index-to-char (mod (- (char-to-index cipher-char) (char-to-index key-char) -1) 26)))
+  (index-to-char (mod (+ (- (char-to-index cipher-char) (char-to-index key-char)) 1) 26)))  ;; (C - K + 1) mod 26
 
 (defun vigenere-decode (s k)
   (let* ((plaintext (normalize-string s))
          (key (normalize-string k))
-         (repeated-key (repeat-key key (length plaintext))))
-    (format t "Key     :  ~A~%" key)
-    (format t "Plaintext: ~A~%" plaintext)
-    (format t "KeyString: ~A~%" repeated-key)
+         (repeated-key (repeat-key key (length plaintext)))) 
+    (format t "Key String: ~A~%" repeated-key)
+    (format t "Ciphertext: ~A~%" plaintext)
     (format t "~%")
     (coerce
      (mapcar #'vigenere-decode-letter
              (coerce plaintext 'list)
              (coerce (repeat-key key (length plaintext)) 'list)) 'string)))
+
+;;; Practice finding indices of letters both ways
+
+(defun random-non-zero-int-list (max remaining result)
+  (if (= 0 remaining)
+      result
+      (let ((new-elem (1+ (random max))))
+        (if (member new-elem result)
+            (random-non-zero-int-list max remaining result)
+            (random-non-zero-int-list max (- remaining 1) (cons new-elem result))))))
+
+(defun read-space-sep-ints ()
+  (read-from-string (concatenate 'string "(" (read-line) ")")))
+
+(defun read-space-sep-chars ()
+  (read-from-string (normalize-string (read-line))))
+
+(defun practice-indices ()
+  (let* ((length 5)
+         (indices (random-non-zero-int-list 26 5 '())))
+    (format t "~a" (coerce (mapcar #'index-to-char indices) 'string))
+    (format t "? ")
+    (let ((user-answer (read-space-sep-ints)))
+      (format t "Your answer: ~a~%" user-answer)
+      (format t "Answer     : ~a" indices)
+      (mapcar #'- user-answer indices))))
+
+(defun practice-letters ()
+  (let* ((length 5)
+         (indices (random-non-zero-int-list 26 5 '())))
+    (format t "~a? " indices)
+    (let* ((user-answer (read-space-sep-chars))
+           (user-indices (mapcar #'char-to-index (coerce (string user-answer) 'list)))
+           (answer-symbol (intern (coerce (mapcar #'index-to-char indices) 'string))))
+      (format t "Your answer: ~a~%" user-answer)
+      (format t "Answer:      ~a" answer-symbol)
+      (format t "~%~a~%~%" user-indices)
+      (dotimes (i (length indices))
+        (if (not (= (nth i indices) (nth i user-indices)))
+            (format t "~2d is ~a, ~2d is ~a~%"
+                    (nth i user-indices)
+                    (itc (nth i user-indices))
+                    (nth i indices)
+                    (itc (nth i indices)))))
+      (if (equal user-answer answer-symbol)
+          'EXCELLENT
+          'TRAIN-MORE))))
+
+;; index to char
+(defun itc (i)
+  (intern (string (index-to-char i))))
+
+(defun cti (c)
+  (char-to-index (char c 0)))
