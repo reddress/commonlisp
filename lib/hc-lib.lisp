@@ -387,7 +387,7 @@ is replaced with replacement."
       (code-char (+ 64 i))))
 
 (defun vigenere-encode-letter (plain-char key-char)
-  (index-to-char (mod (+ (char-to-index plain-char) (char-to-index key-char) -1) 26)))  ;; (P + K - 1) mod 26
+  (index-to-char (mod (+ (char-to-index plain-char) (char-to-index key-char)) 26)))  ;; (P + K) mod 26, classic Vigenere uses (P + K - 1) mod 26
 
 (defun repeat-key (key length)
   (let* ((key-length (length key))
@@ -422,14 +422,14 @@ is replaced with replacement."
              (coerce (repeat-key key (length plaintext)) 'list)) 'string)))
 
 (defun vigenere-decode-letter (cipher-char key-char)
-  (index-to-char (mod (+ (- (char-to-index cipher-char) (char-to-index key-char)) 1) 26)))  ;; (C - K + 1) mod 26
+  (index-to-char (mod (- (char-to-index cipher-char) (char-to-index key-char)) 26)))  ;; (C - K) mod 26, classic Vigenere uses (C - K + 1) mod 26
 
 (defun vigenere-decode (s k)
   (let* ((plaintext (normalize-string s))
          (key (normalize-string k))
          (repeated-key (repeat-key key (length plaintext)))) 
-    (format t "Key String: ~A~%" repeated-key)
     (format t "Ciphertext: ~A~%" plaintext)
+    (format t "Key String: ~A~%" repeated-key)
     (format t "~%")
     (coerce
      (mapcar #'vigenere-decode-letter
