@@ -474,9 +474,9 @@ is replaced with replacement."
       (format t "~%~a~%~%" user-indices)
       (dotimes (i (length indices))
         (if (not (= (nth i indices) (nth i user-indices)))
-            (format t "~2d is ~a, ~2d is ~a~%"
-                    (nth i user-indices)
+            (format t "~a is ~2d, ~2d is ~a~%"
                     (itc (nth i user-indices))
+                    (nth i user-indices)
                     (nth i indices)
                     (itc (nth i indices)))))
       (if (equal user-answer answer-symbol)
