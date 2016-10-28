@@ -489,3 +489,12 @@ is replaced with replacement."
 
 (defun cti (c)
   (char-to-index (char c 0)))
+
+;;; gematria
+
+(defun gematria (s)
+  "Usage: (gematria 'bullshit) or (gematria \"hard work\"). Non-alphabetic characters are discarded."
+  (let ((input (normalize-string (string s))))
+    (format t " ~{~2a   ~}~%" (coerce input 'list))
+    (format t "~{~2d ~^+ ~}" (mapcar #'char-to-index (coerce input 'list)))
+    (format t " = ~d" (reduce #'+ (mapcar #'char-to-index (coerce input 'list))))))
